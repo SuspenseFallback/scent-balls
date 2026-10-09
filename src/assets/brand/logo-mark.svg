@@ -1,0 +1,5 @@
+<!-- TODO(content): placeholder mark -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 34" width="30" height="34">
+  <circle cx="15" cy="5" r="3.75" fill="none" stroke="#1B1D1F" stroke-width="2.5"/>
+  <ellipse cx="15" cy="21" rx="15" ry="13" fill="#189BDC"/>
+</svg>
