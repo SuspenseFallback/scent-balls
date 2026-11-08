@@ -10,17 +10,17 @@ const charcoal: { x: number; y: number; r: number }[] = [];
   }
 });
 
-const Arrow = ({ line, head }: { line: [number, number, number, number]; head: string }) => (
+const Arrow = ({ line, head, dir }: { line: [number, number, number, number]; head: string; dir: 'in' | 'out' }) => (
   <>
-    <line x1={line[0]} y1={line[1]} x2={line[2]} y2={line[3]} className="airflow__arrow" />
-    <polygon points={head} className="airflow__arrowhead" />
+    <line x1={line[0]} y1={line[1]} x2={line[2]} y2={line[3]} className={`airflow__arrow airflow__arrow--${dir}`} />
+    <polygon points={head} className={`airflow__arrowhead airflow__arrow--${dir}`} />
   </>
 );
 
 /** Illustrative cutaway. The selected step highlights its part and dims the rest. */
 export function AirflowDiagram({ step }: { step: StepId | null }) {
   return (
-    <figure className="airflow card card--flat" data-step={step ?? undefined}>
+    <figure className="airflow card" data-step={step ?? undefined}>
       <svg viewBox="0 0 430 360" role="img" aria-labelledby="af-title af-desc" width="430" height="360">
         <title id="af-title">Cutaway of the scent ball</title>
         <desc id="af-desc">
@@ -33,7 +33,7 @@ export function AirflowDiagram({ step }: { step: StepId | null }) {
 
         <g className="part part--charcoal">
           {charcoal.map((d, i) => (
-            <circle key={i} cx={d.x} cy={d.y} r={d.r} fill="#33373b" />
+            <circle key={i} cx={d.x} cy={d.y} r={d.r} className="airflow__charcoal" />
           ))}
           <line x1="215" y1="300" x2="215" y2="326" stroke="var(--ink)" strokeWidth="1.5" />
           <text x="215" y="348" textAnchor="middle" className="airflow__label">
@@ -56,7 +56,7 @@ export function AirflowDiagram({ step }: { step: StepId | null }) {
             d="M171 152 C170 124 199 113 218 117 C244 121 261 136 257 160 C253 182 227 188 205 186 C183 184 172 172 171 152Z"
             className="airflow__lava"
           />
-          <g fill="#5c463e">
+          <g className="airflow__pores">
             <circle cx="196" cy="140" r="4" />
             <circle cx="222" cy="134" r="3" />
             <circle cx="238" cy="160" r="4" />
@@ -73,7 +73,7 @@ export function AirflowDiagram({ step }: { step: StepId | null }) {
         </g>
 
         <g className="part part--holes">
-          <g fill="var(--bg)">
+          <g fill="#fff">
             <circle cx="118" cy="256" r="6" />
             <circle cx="106" cy="229" r="6" />
             <circle cx="312" cy="256" r="6" />
@@ -81,10 +81,10 @@ export function AirflowDiagram({ step }: { step: StepId | null }) {
             <circle cx="159" cy="103" r="6" />
             <circle cx="271" cy="103" r="6" />
           </g>
-          <Arrow line={[28, 243, 86, 243]} head="96,243 84,236 84,250" />
-          <Arrow line={[402, 243, 344, 243]} head="334,243 346,236 346,250" />
-          <Arrow line={[152, 94, 134, 62]} head="129,52 140,58 127,64" />
-          <Arrow line={[278, 94, 296, 62]} head="301,52 290,58 303,64" />
+          <Arrow dir="in" line={[28, 243, 86, 243]} head="96,243 84,236 84,250" />
+          <Arrow dir="in" line={[402, 243, 344, 243]} head="334,243 346,236 346,250" />
+          <Arrow dir="out" line={[152, 94, 134, 62]} head="129,52 140,58 127,64" />
+          <Arrow dir="out" line={[278, 94, 296, 62]} head="301,52 290,58 303,64" />
           <text x="20" y="30" className="airflow__label">
             Top holes: air out
           </text>

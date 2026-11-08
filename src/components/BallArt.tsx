@@ -87,7 +87,7 @@ function Face({ id, dark }: { id: Design['id']; dark: string }) {
           <path d="M62 106 Q72 115 82 106" />
           <path d="M118 106 Q128 115 138 106" />
           <ellipse cx="100" cy="135" rx="9" ry="12" fill={dark} stroke="none" />
-          <g fill={dark} stroke="none" fontFamily="var(--font-display)" fontWeight="800">
+          <g fill={dark} stroke="none" fontFamily="var(--font-body)" fontWeight="800">
             <text x="146" y="80" fontSize="20">z</text>
             <text x="161" y="62" fontSize="15">z</text>
             <text x="172" y="47" fontSize="11">z</text>

@@ -1,10 +1,11 @@
 import { copy } from '../content/copy';
 import { faq } from '../content/faq';
+import { accentFor } from '../content/theme';
 import { SectionHead } from './SectionHead';
 
 export function Faq() {
   return (
-    <section className="section section--white" id="faq" aria-labelledby="faq-title">
+    <section className="section section--tint" data-accent={accentFor('faq')} id="faq" aria-labelledby="faq-title">
       <div className="container">
         <SectionHead id="faq-title" eyebrow={copy.faq.eyebrow} title={copy.faq.title} center />
         <div className="faq">

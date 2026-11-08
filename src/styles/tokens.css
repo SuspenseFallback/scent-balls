@@ -1,43 +1,54 @@
 :root {
   /* ==========================================================
-     CHANGE BRAND COLOUR HERE
-     The brand colour is defined ONLY by these three values.
-     Every other brand shade below is derived from them.
-     (Placeholder: a friendly sky blue.)
+     BRAND PALETTE: CHANGE HERE
+     Sampled from src/assets/brand/reference/wello-logo.png (logo letter colours).
+     - --c-X        pastel: fills, large display type, illustrations. Never body text on white.
+     - --c-X-deep   for text, links, icons and buttons with white text (≥ 4.5:1 on white).
+     - --c-X-tint   14% tint for section backgrounds. Text on a tint is always --ink.
+     After changing any value, run `npm run check:contrast`.
      ========================================================== */
-  --brand-h: 200;
-  --brand-s: 80%;
-  --brand-l: 48%;
+  --c-purple: #8d7aca;
+  --c-coral: #f3777f;
+  --c-orange: #fd7f3a;
+  --c-sky: #99c5ff;
+  --c-grey: #adadad; /* the ball's hanging loop */
 
-  --brand: hsl(var(--brand-h) var(--brand-s) var(--brand-l));
-  --brand-strong: hsl(var(--brand-h) var(--brand-s) calc(var(--brand-l) - 12%));
-  --brand-stronger: hsl(var(--brand-h) var(--brand-s) calc(var(--brand-l) - 20%));
-  --brand-soft: hsl(var(--brand-h) var(--brand-s) 94%);
-  --brand-tint: color-mix(in srgb, var(--brand) 16%, white);
-  /* White on --brand (l 48%) is under 4.5:1, so filled buttons use --brand-strong
-     with --on-brand. If you pick a very light brand colour, set --on-brand: var(--ink). */
-  --on-brand: #ffffff;
+  --c-purple-deep: #5b4a9e;
+  --c-coral-deep: #b03a44;
+  --c-orange-deep: #a3480f;
+  --c-sky-deep: #2a62c0;
+
+  --c-purple-tint: color-mix(in srgb, var(--c-purple) 14%, white);
+  --c-coral-tint: color-mix(in srgb, var(--c-coral) 14%, white);
+  --c-orange-tint: color-mix(in srgb, var(--c-orange) 14%, white);
+  --c-sky-tint: color-mix(in srgb, var(--c-sky) 14%, white);
 
   /* Neutrals */
   --ink: #1b1d1f;
   --ink-soft: #5a6066;
-  --bg: #fbfaf7;
-  --surface: #ffffff;
+  --bg: #ffffff;
+  --bg-soft: #f7f5fc;
   --line: #e8e6e1;
+  --surface: #ffffff;
 
-  /* Design colours — match the real prints once they exist */
-  --d-sleep: #3b9ad9;
-  --d-shower: #8e7ce8;
-  --d-skincare: #f28ba8;
-  --d-hydrate: #38c6d9;
-  --d-breathe: #6dbe8a;
-  --d-move: #ff7a45;
+  /* Roles */
+  --brand: var(--c-purple-deep); /* primary buttons, links, focus ring */
+  --brand-hover: #463882;
+  --on-brand: #ffffff;
+  --brand-soft: var(--c-purple-tint); /* selected / hover fills */
+
+  /* Section accent: set per section with data-accent (see .accent-* in global.css).
+     Defaults to purple. */
+  --accent: var(--c-purple);
+  --accent-deep: var(--c-purple-deep);
+  --accent-tint: var(--c-purple-tint);
 
   /* Type — swap a family in one line */
-  --font-display: 'Plus Jakarta Sans Variable', 'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-display: 'Anton', 'Impact', 'Arial Narrow Bold', sans-serif;
   --font-body: 'Inter Variable', 'Inter', system-ui, sans-serif;
-  --fs-h1: clamp(2.5rem, 1.6rem + 4.2vw, 4.5rem);
-  --fs-h2: clamp(1.9rem, 1.4rem + 2.2vw, 3rem);
+  --display-tracking: 0.02em;
+  --fs-h1: clamp(3rem, 1.9rem + 5.2vw, 5.5rem);
+  --fs-h2: clamp(2.25rem, 1.6rem + 2.8vw, 3.75rem);
   --fs-h3: clamp(1.15rem, 1.05rem + 0.4vw, 1.375rem);
   --fs-lead: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem);
   --fs-body: 1rem;
@@ -62,9 +73,9 @@
   /* Shape */
   --radius-card: 24px;
   --radius-pill: 999px;
-  --shadow: 0 8px 30px rgba(27, 29, 31, 0.08);
+  --shadow: 0 8px 30px rgba(27, 29, 31, 0.06);
   --header-h: 68px;
-  --focus: 0 0 0 3px var(--bg), 0 0 0 6px var(--brand-strong);
+  --focus: 0 0 0 3px var(--bg), 0 0 0 6px var(--brand);
 }
 
 @media (min-width: 768px) {

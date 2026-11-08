@@ -1,13 +1,15 @@
 import type { SiteConfig } from './types';
 
 export const site: SiteConfig = {
-  brandName: 'Fumi', // TODO(content): final brand name
-  logoStyle: 'mark-and-name',
-  tagline: 'The reusable scent ball for shoes, bags and lockers', // TODO(content)
+  // Running text says "Wello"; the wordmark (Logo.tsx) is uppercase WELLO.
+  brandName: 'Wello',
+  tagline: 'Say Wello to fresh.', // TODO(content): confirm tagline
   description:
     'A small reusable ball with activated charcoal and a lava stone you scent yourself. For shoes, gym bags, school bags, lockers and wardrobes.', // TODO(content)
   siteUrl: 'https://example.com', // TODO(content): production URL, no trailing slash
-  ogImage: null, // TODO(content): add public/og-image.png (1200×630) and set 'og-image.png'
+  // Generated on every build by scripts/brand-assets.mjs (wordmark + ball, 1200×630 PNG).
+  // Set to a different file in /public to use your own, or null for none.
+  ogImage: 'og-image.png',
   contactEmail: 'hello@example.com', // TODO(content)
   whatsappNumber: '6500000000', // TODO(content): digits only, with 65 country code
   instagramUrl: 'https://instagram.com/', // TODO(content)

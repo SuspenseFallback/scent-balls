@@ -22,8 +22,9 @@ export const copy = {
     { href: '#order', label: 'Order' },
   ],
   hero: {
-    // Options: "Smell fresh. Even your shoes." / "Your gym bag called. It needs help." / "Meet the crew that keeps things fresh."
-    headline: 'Smell fresh. Even your shoes.', // TODO(content): pick final headline
+    // Shown uppercase in Anton. Keep it short: long display headlines get hard to read.
+    headlineOptions: ['Say Wello to fresh shoes.', 'Say Wello to a fresher gym bag.', 'Meet the crew that keeps things fresh.'],
+    headline: 'Say Wello to fresh shoes.', // TODO(content): pick final headline (one of headlineOptions, or your own)
     subhead:
       'A little reusable ball with charcoal and a lava stone inside. Spray your own cologne or deodorant on the stone, close it up, and drop it in your shoes, gym bag or locker.',
     primaryCta: 'Reserve yours',
@@ -33,12 +34,11 @@ export const copy = {
   problem: {
     eyebrow: 'The sticky truth',
     title: 'Singapore weather follows you everywhere.',
-    // designId only picks the accent colour
     cards: [
-      { designId: 'sleep', title: 'The 6pm MRT', body: 'Thirty-two degrees, one packed carriage, and your bag was there for all of it.' },
-      { designId: 'move', title: 'The gym bag', body: "Yesterday's towel and today's shirt have been sharing a zip for a while now." },
-      { designId: 'breathe', title: 'Shoes after CCA', body: 'They did their best out there. Now they need a little help before tomorrow.' },
-    ] as { designId: DesignId; title: string; body: string }[],
+      { title: 'The 6pm MRT', body: 'Thirty-two degrees, one packed carriage, and your bag was there for all of it.' },
+      { title: 'The gym bag', body: "Yesterday's towel and today's shirt have been sharing a zip for a while now." },
+      { title: 'Shoes after CCA', body: 'They did their best out there. Now they need a little help before tomorrow.' },
+    ],
   },
   how: {
     eyebrow: 'How it works',
@@ -164,6 +164,8 @@ export const copy = {
     privacy: 'Privacy',
     contact: 'Contact',
     safetyTitle: 'Safety',
+    signOff: 'Say Wello',
+    signOffBody: 'Questions, custom orders or just saying hi? Find us here.',
     // Only shown when site.madeInSingapore is true.
     madeIn: 'Designed in Singapore',
   },

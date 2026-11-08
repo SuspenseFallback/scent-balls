@@ -1,11 +1,12 @@
 import { copy } from '../content/copy';
 import { site } from '../content/site';
+import { accentFor } from '../content/theme';
 import { OrderBuilder } from './OrderBuilder';
 
 export function Order() {
   const o = copy.order;
   return (
-    <section className="section" id="order" aria-labelledby="order-title">
+    <section className="section" data-accent={accentFor('order')} id="order" aria-labelledby="order-title">
       <div className="container order__grid">
         <div className="order__side">
           <span className="eyebrow">{o.eyebrow}</span>

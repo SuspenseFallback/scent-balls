@@ -10,6 +10,7 @@ import { Order } from '../components/Order';
 import { Problem } from '../components/Problem';
 import { Proof } from '../components/Proof';
 import { StickyBar } from '../components/StickyBar';
+import { StripeBand } from '../components/StripeBand';
 import { UseCases } from '../components/UseCases';
 import { WhyDifferent } from '../components/WhyDifferent';
 
@@ -24,12 +25,15 @@ export function Home() {
         <Hero />
         <Marquee />
         <Problem />
+        <StripeBand />
         <HowItWorks />
         <WhyDifferent />
+        <StripeBand flip />
         <Crew />
         <UseCases />
         <MadeBetter />
         <Proof />
+        <StripeBand />
         <Faq />
         <Order />
       </main>

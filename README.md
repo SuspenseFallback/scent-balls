@@ -1,6 +1,6 @@
-# Scent ball site
+# Wello
 
-Single-page marketing site for the reusable scent ball. Vite + React 18 + TypeScript, plain CSS, no backend, no cookies, no analytics. Pages are prerendered to static HTML at build time, so the content and link previews work before (and without) JavaScript.
+Single-page marketing site for Wello, the reusable scent ball. Vite + React 18 + TypeScript, plain CSS, no backend, no cookies, no analytics. Pages are prerendered to static HTML at build time, so the content and link previews work before (and without) JavaScript.
 
 ```bash
 npm install
@@ -8,6 +8,8 @@ npm run dev            # local dev server
 npm run build          # type-check, build, prerender → dist/
 npm run preview        # serve dist/ locally
 npm run check:content  # list every TODO(content) placeholder; fails if any remain
+npm run check:contrast # WCAG contrast of every colour pair the site uses; fails below AA
+npm run brand:assets   # regenerate favicon.svg + og-image.png (also runs on every build)
 ```
 
 ## Editing content (no component changes needed)
@@ -21,6 +23,7 @@ Everything you'd normally change lives in `src/content/`:
 | `products.ts` | What can be ordered: single ball, 3-pack pouch, (commented-out) refills, prices, optional `checkoutUrl` |
 | `faq.ts` | FAQ questions and answers |
 | `copy.ts` | All other page text: hero, sections, comparison table, order form labels, privacy page, safety lines, reviews |
+| `theme.ts` | Logo colour order and which section gets which accent colour |
 | `types.ts` | Shapes of the above (only touch if you add a new field) |
 
 Every placeholder is marked `TODO(content)`. Run `npm run check:content` to see what's left.
@@ -29,16 +32,51 @@ Every placeholder is marked `TODO(content)`. Run `npm run check:content` to see 
 
 In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. It then gets an order button in "Meet the crew", a quantity row in the order form, and appears in the 3-pack design pickers. While a design is coming soon it shows a "Coming soon" chip and its placeholder face (the faces live in `src/components/BallArt.tsx`).
 
-## Swapping brand name, logo and colour
+## Brand
 
-- **Name:** `brandName` in `src/content/site.ts`. It flows into the header, footer, comparison table, WhatsApp message, page titles, Open Graph tags and JSON-LD.
-- **Logo:** replace the placeholder SVGs in `src/assets/brand/`:
-  - `logo-mark.svg` (the icon shown next to the name),
-  - `logo.svg` (a full logo; used only when `logoStyle: 'full-logo'` in `site.ts`),
-  - `favicon.svg`.
-  `src/components/Logo.tsx` is the only component that references them. If your mark isn't roughly 30×34, update the width/height there.
-- **Colour:** in `src/styles/tokens.css`, find **CHANGE BRAND COLOUR HERE** and set `--brand-h`, `--brand-s`, `--brand-l`. Every other brand shade (buttons, links, tints, focus ring) is derived from those three. Filled buttons use `--brand-strong` (12% darker) for contrast; if you pick a very light colour, set `--on-brand: var(--ink)`. Check contrast of `--brand-strong` against white (≥ 4.5:1) after changing it. Also update the hard-coded blue in the placeholder SVGs, since SVG files can't read CSS variables.
-- **Fonts:** `--font-display` / `--font-body` in `tokens.css`. To change the family, install another `@fontsource-variable/*` package, swap the imports in `src/mount.tsx`, and update the file-name patterns in `preloadFonts()` (`vite-plugins/injectMeta.ts`).
+The brand is **Wello**: a wordmark "WELLO" in Anton where the O is a striped ball with a hanging loop (reference: `src/assets/brand/reference/wello-logo.png`). In running text, write "Wello". The striped ball is the brand mascot (header, favicon, footer, dividers). It is **not** a product picture: the products are the six character balls.
+
+Tone: friendly and a little cheeky. The name hints at wellness, but make **no health, hygiene-benefit or wellness claims**. The self-care themes of the six designs are a vibe, not a promise.
+
+### Palette (`src/styles/tokens.css`)
+
+Find the block **BRAND PALETTE: CHANGE HERE**. Each logo colour has three tokens:
+
+| Token | Use |
+| --- | --- |
+| `--c-purple`, `--c-coral`, `--c-orange`, `--c-sky` | Pastel. Fills, large display type, illustrations, stripes. Never body text on white. |
+| `--c-X-deep` | Text, links, icons, and buttons with white text. Each is at least 4.5:1 on white. |
+| `--c-X-tint` | 14% tint for section backgrounds. Text on a tint is always `--ink`. |
+
+Plus `--c-grey` (the ball's loop), neutrals (`--ink`, `--ink-soft`, `--bg`, `--bg-soft`, `--line`) and roles: `--brand` (= purple-deep: primary buttons, links, focus ring) and `--on-brand` (white).
+
+After changing any colour, run `npm run check:contrast`. It reads `tokens.css` and the design colours in `designs.ts`, works out the WCAG ratio for every pair the site uses (declared at the top of `scripts/check-contrast.mjs`), and fails below 4.5:1 for text or 3:1 for large text and UI. If you add a new colour combination to the CSS, add it to that list too. The browser theme colour comes from `--brand` automatically.
+
+### Section accents (`src/content/theme.ts`)
+
+Sections rotate through the logo colours for their eyebrow, icons, step numbers, chips and tinted backgrounds. `accentRotation` is the colour order and `accentedSections` is the list of sections, in page order, that take colours from it. Reorder either array to change which section gets which colour. "Meet the crew" always uses the selected design's colour. In CSS, a section's colours are `--accent`, `--accent-deep` and `--accent-tint`.
+
+### Logo
+
+- `src/components/Logo.tsx` is the **one place the logo is drawn**. Variants: `full` (coloured, header), `mark` (ball only), `ink` (one colour, footer). It's built from live text: "WELL" in Anton, plus `<WelloBall />` as the O, sized in em so it scales with `font-size`. The proportions (ball 0.91 × cap height, raised 0.22 × cap height, tucked over the last L) are in the `.wordmark` rules in `global.css`.
+- When the final vector logo arrives, replace the inside of `Logo.tsx` (for example with an inline `<svg>` or an `<img>` of the file). Nothing else needs to change. Keep `role="img"` and `aria-label={site.brandName}` on the outer element.
+- The ball's shapes live in `src/lib/welloBall.ts` and are shared by `<WelloBall />`, the favicon and the OG image, so editing them updates all three. `<WelloBall animate />` swings gently from the loop (static with reduced motion).
+- **Name:** `brandName` in `src/content/site.ts` flows into the page text, comparison table, WhatsApp message, titles, Open Graph and JSON-LD. The wordmark letters themselves are in `Logo.tsx`.
+
+### Favicon and OG image
+
+`scripts/brand-assets.mjs` runs before every build (or `npm run brand:assets`) and writes:
+
+- `src/assets/brand/favicon.svg`: the ball mark, from `welloBall.ts` and the palette.
+- `public/og-image.png`: 1200×630 link preview (wordmark, tagline and stripes on `--bg-soft`). WhatsApp and Telegram need PNG or JPG, so it's rendered with `sharp`. The text is drawn from Anton's own glyph outlines (`scripts/lib/glyphs.mjs`), so it doesn't depend on fonts installed on the build machine. `site.ogImage` points at it; set it to another file in `public/` to use your own design instead (and remove the OG part of the script).
+
+### Type
+
+Display is **Anton** (`@fontsource/anton`, Latin subset): uppercase, slightly tracked, only for h1/h2 and short labels, never paragraphs or long headlines. Body and UI is **Inter Variable**. Both are self-hosted with `font-display: swap`, and the Latin files are preloaded. To change a family, install another `@fontsource` package, swap the imports in `src/mount.tsx`, update `--font-display` / `--font-body` in `tokens.css`, and update the file-name patterns in `preloadFonts()` (`vite-plugins/injectMeta.ts`). The OG image script and the `.wordmark` em values assume Anton's metrics, so re-check those if the display font changes.
+
+### Stripes
+
+`<StripeBand />` draws curved bands in the four colours in logo order: `variant="hero"` (hero background), `"divider"` (between sections, placed in `src/pages/Home.tsx`; `flip` mirrors it) and `"thin"` (footer accent). Flat colours only.
 
 ## Adding real photos
 
@@ -50,7 +88,7 @@ In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. I
    - `copy.ts` → `useCases.items`: `photo: 'shoes.jpg'`. Replaces the striped placeholder.
    - `copy.ts` → `proof.btsPhoto` for the behind-the-scenes photo.
 3. For the how-it-works video, put a short muted MP4 in `public/` and set `copy.how.video.src` (and optionally `poster`).
-4. For link previews, add `public/og-image.png` (1200×630) and set `ogImage: 'og-image.png'` in `site.ts`.
+4. The link-preview image is generated for you (see **Favicon and OG image**). Product photos aren't used in it.
 
 Slots have fixed aspect ratios, so adding photos causes no layout shift. Images below the fold lazy-load automatically. Compress photos before adding them (for example with squoosh.app); aim for under 200 KB each.
 
@@ -99,7 +137,7 @@ All order logic is in **`src/lib/orders.ts`**.
 
 - `src/pages/Home.tsx` lists the sections in order; each section is a component in `src/components/`.
 - `src/components/BallArt.tsx` draws the ball as an inline SVG (sphere, loop, seam, holes and face in the design's colour) whenever there's no photo. Its alt text says "illustration".
-- `vite-plugins/injectMeta.ts` writes the title, description, canonical, Open Graph, Twitter tags and JSON-LD Product schema (no ratings or reviews) into the HTML at build time, because WhatsApp and Telegram link previews don't run JavaScript. It also preloads the two font files.
+- `vite-plugins/injectMeta.ts` writes the title, description, canonical, Open Graph, Twitter tags and JSON-LD Product schema (no ratings or reviews) into the HTML at build time, because WhatsApp and Telegram link previews don't run JavaScript. It also sets the theme colour from `--brand` and preloads the two font files.
 - `src/entry-server.tsx` + `scripts/prerender.mjs` render each page to static HTML after the build; the browser then hydrates it.
 - Motion is CSS only, plus one IntersectionObserver hook (`src/lib/useInView.ts`). Everything is static with `prefers-reduced-motion`.
 
@@ -111,18 +149,19 @@ All order logic is in **`src/lib/orders.ts`**.
 - Never invent reviews or names. "Made/Designed in Singapore" only with the flag on.
 - Keep the safety lines in the FAQ and footer (`safetyLines` in `copy.ts`).
 - Friendly, a little cheeky, Singapore-aware (S$, MRT, CCA, gym bag, sticky weather), no Singlish slang.
+- "Wello" hints at wellness: no health, hygiene-benefit or wellness claims.
 
 ## Launch checklist
 
-- [ ] Brand name, tagline and description final (`site.ts`)
-- [ ] Logo, mark and favicon replaced (`src/assets/brand/`); brand colour set (`tokens.css`) and contrast checked
+- [ ] Tagline and description final (`site.ts`)
+- [ ] Final vector logo dropped into `Logo.tsx` (if it differs from the current build); palette confirmed and `npm run check:contrast` passes
 - [ ] Final hero headline chosen (`copy.hero.headline`)
 - [ ] `siteUrl`, `contactEmail`, `whatsappNumber` (with 65 country code), Instagram and TikTok URLs set
 - [ ] WhatsApp order tested on a real phone, and the message arrives on the right number
 - [ ] Prices, pouch details, payment note and pickup info confirmed (`products.ts`, `site.ts`)
 - [ ] Design colours matched to the real prints; taglines and "who it's for" final (`designs.ts`)
 - [ ] Faces drawn for any design switched to `ready`
-- [ ] Real photos added (at least Sleep + the use-case grid); `og-image.png` added and `ogImage` set
+- [ ] Real photos added (at least Sleep + the use-case grid); OG preview checked
 - [ ] `recycledPercent` set only if confirmed by the filament supplier
 - [ ] Any test results, reviews or behind-the-scenes content is real before turning it on
 - [ ] Privacy page "Last updated" date correct

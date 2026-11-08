@@ -1,11 +1,13 @@
 import { copy } from '../content/copy';
 import { designs, readyDesigns } from '../content/designs';
 import { BallArt } from './BallArt';
+import { StripeBand } from './StripeBand';
 
 export function Hero() {
   const star = readyDesigns()[0] ?? designs[0];
   return (
     <section className="hero" id="hero" aria-labelledby="hero-title">
+      <StripeBand variant="hero" className="hero__stripes" />
       <div className="container hero__grid">
         <div className="hero__copy">
           <h1 id="hero-title">{copy.hero.headline}</h1>

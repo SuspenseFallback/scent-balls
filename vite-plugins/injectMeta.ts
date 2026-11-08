@@ -1,6 +1,19 @@
+import { readFileSync } from 'node:fs';
 import type { Plugin } from 'vite';
 import { site } from '../src/content/site';
 import { products } from '../src/content/products';
+
+/** Resolve a colour token from tokens.css (follows var() references), so the theme colour has one source. */
+function tokenColour(name: string): string {
+  const css = readFileSync(new URL('../src/styles/tokens.css', import.meta.url), 'utf8');
+  let v = name;
+  for (let i = 0; i < 5 && v.startsWith('--'); i++) {
+    const m = css.match(new RegExp(`${v}\\s*:\\s*([^;]+);`));
+    if (!m) break;
+    v = m[1].trim().replace(/^var\((--[\w-]+)\)$/, '$1');
+  }
+  return v;
+}
 
 /**
  * Writes SEO / social meta into the built HTML. WhatsApp, Telegram and most
@@ -22,8 +35,10 @@ export function injectMeta({ base }: { base: string }): Plugin {
         const pageUrl = join(join(site.siteUrl, base), isPrivacy ? 'privacy.html' : '');
         const title = isPrivacy ? `Privacy · ${site.brandName}` : `${site.brandName} · ${site.tagline}`;
         const image = site.ogImage ? join(join(site.siteUrl, base), site.ogImage) : null;
+        const themeColour = tokenColour('--brand');
 
         const tags = [
+          `<meta name="theme-color" content="${esc(themeColour)}" />`,
           `<title>${esc(title)}</title>`,
           `<meta name="description" content="${esc(site.description)}" />`,
           `<link rel="canonical" href="${esc(pageUrl)}" />`,
@@ -40,6 +55,10 @@ export function injectMeta({ base }: { base: string }): Plugin {
         ];
         if (image) {
           tags.push(`<meta property="og:image" content="${esc(image)}" />`);
+          tags.push(`<meta property="og:image:type" content="image/png" />`);
+          tags.push(`<meta property="og:image:width" content="1200" />`);
+          tags.push(`<meta property="og:image:height" content="630" />`);
+          tags.push(`<meta property="og:image:alt" content="${esc(`${site.brandName}: ${site.tagline}`)}" />`);
           tags.push(`<meta name="twitter:image" content="${esc(image)}" />`);
         }
 
@@ -51,7 +70,6 @@ export function injectMeta({ base }: { base: string }): Plugin {
             description: p.description,
             brand: { '@type': 'Brand', name: site.brandName },
             material: 'Recycled PLA',
-            ...(image ? { image } : {}),
             offers: {
               '@type': 'Offer',
               price: p.priceSGD.toFixed(2),
@@ -79,7 +97,7 @@ export function injectMeta({ base }: { base: string }): Plugin {
  * final font on first paint (avoids the hero reflowing when fonts swap in).
  */
 export function preloadFonts(base: string): Plugin {
-  const WANTED = [/plus-jakarta-sans-latin-wght-normal-[\w-]+\.woff2$/, /inter-latin-wght-normal-[\w-]+\.woff2$/];
+  const WANTED = [/anton-latin-400-normal-[\w-]+\.woff2$/, /inter-latin-wght-normal-[\w-]+\.woff2$/];
   return {
     name: 'preload-fonts',
     apply: 'build',

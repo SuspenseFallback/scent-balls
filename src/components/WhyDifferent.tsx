@@ -1,5 +1,6 @@
 import { copy } from '../content/copy';
 import { site } from '../content/site';
+import { accentFor } from '../content/theme';
 import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
 
@@ -22,7 +23,7 @@ function Cell({ v }: { v: boolean | string }) {
 export function WhyDifferent() {
   const d = copy.different;
   return (
-    <section className="section" aria-labelledby="diff-title">
+    <section className="section" data-accent={accentFor('different')} aria-labelledby="diff-title">
       <div className="container">
         <SectionHead id="diff-title" eyebrow={d.eyebrow} title={d.title} />
         <div className="grid-3">

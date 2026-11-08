@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { copy } from '../content/copy';
-import { site } from '../content/site';
 import { Logo } from './Logo';
 
 export function Header() {
@@ -29,7 +28,7 @@ export function Header() {
   return (
     <header className="header" id="top">
       <div className="container header__inner">
-        <a href="#top" className="header__home" aria-label={`${site.brandName} home`}>
+        <a href="#top" className="header__home">
           <Logo />
         </a>
         <nav className="header__nav" aria-label={copy.header.mainNav}>

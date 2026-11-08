@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { copy } from '../content/copy';
+import { accentFor } from '../content/theme';
 import { publicUrl } from '../lib/photos';
 import { prefersReducedMotion } from '../lib/useInView';
 import { AirflowDiagram, type StepId } from './AirflowDiagram';
@@ -14,7 +15,7 @@ export function HowItWorks() {
   useEffect(() => setAutoPlay(!prefersReducedMotion()), []);
 
   return (
-    <section className="section section--white" id="how" aria-labelledby="how-title">
+    <section className="section section--tint" data-accent={accentFor('how')} id="how" aria-labelledby="how-title">
       <div className="container how__grid">
         <div className="how__copy">
           <SectionHead id="how-title" eyebrow={copy.how.eyebrow} title={copy.how.title}>

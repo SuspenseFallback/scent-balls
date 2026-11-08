@@ -11,7 +11,7 @@ export function Privacy() {
       </a>
       <header className="header header--static">
         <div className="container container--narrow header__inner">
-          <a href="./" className="header__home" aria-label={`${site.brandName} home`}>
+          <a href="./" className="header__home">
             <Logo />
           </a>
           <a href="./" className="privacy__back">

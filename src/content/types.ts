@@ -60,11 +60,6 @@ export interface FaqItem {
 
 export interface SiteConfig {
   brandName: string;
-  /**
-   * 'mark-and-name': logo-mark.svg + brandName as live text (default while the name is undecided).
-   * 'full-logo': use logo.svg on its own once a real logo exists.
-   */
-  logoStyle: 'mark-and-name' | 'full-logo';
   tagline: string;
   description: string;
   /** Absolute production URL without trailing slash, used for canonical + OG. */

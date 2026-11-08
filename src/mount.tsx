@@ -1,6 +1,6 @@
 import { StrictMode, type ReactNode } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
-import '@fontsource-variable/plus-jakarta-sans';
+import '@fontsource/anton/latin-400.css';
 import '@fontsource-variable/inter';
 import './styles/tokens.css';
 import './styles/global.css';

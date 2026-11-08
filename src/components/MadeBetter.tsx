@@ -1,14 +1,15 @@
 import { copy } from '../content/copy';
+import { accentFor } from '../content/theme';
 import { Reveal } from './Reveal';
 
 /** Sustainability is a supporting message: facts only. */
 export function MadeBetter() {
   const m = copy.madeBetter;
   return (
-    <section className="section section--tight-top" aria-labelledby="better-title">
+    <section className="section section--tight-top" data-accent={accentFor('madeBetter')} aria-labelledby="better-title">
       <div className="container">
         <Reveal className="band">
-          <h2 id="better-title" className="eyebrow eyebrow--green">
+          <h2 id="better-title" className="eyebrow">
             {m.eyebrow}
           </h2>
           <ul className="band__facts">
