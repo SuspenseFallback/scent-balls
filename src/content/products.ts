@@ -1,6 +1,6 @@
 import type { Product } from './types';
 
-const allDesigns: Product['designIds'] = ['sleep', 'shower', 'skincare', 'hydrate', 'breathe', 'move'];
+const allDesigns: Product['designIds'] = ['snoozie', 'clem', 'mr-move', 'bubbles', 'solace'];
 
 export const products: Product[] = [
   {

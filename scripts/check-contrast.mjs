@@ -44,12 +44,11 @@ const ratio = (a, b) => {
   return (x + 0.05) / (y + 0.05);
 };
 
-// ---- Design colours (data in designs.ts): ink on the colour and on its 14% crew tint ----
+// ---- Design colours (data in designs.ts): ink on the 14% crew tint. Text never sits on the ball colour itself. ----
 const designsSrc = readFileSync(new URL('../src/content/designs.ts', import.meta.url), 'utf8');
 const designPairs = [];
 for (const m of designsSrc.matchAll(/name:\s*'([^']+)'[\s\S]*?color:\s*'(#[0-9a-fA-F]{3,6})'/g)) {
   const [, name, color] = m;
-  designPairs.push(['--ink', color, 'text', `ink on ${name} ball colour`]);
   designPairs.push(['--ink', `color-mix(in srgb, ${color} 14%, white)`, 'text', `ink on ${name} crew tint`]);
 }
 

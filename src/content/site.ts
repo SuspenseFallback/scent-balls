@@ -17,7 +17,7 @@ export const site: SiteConfig = {
   orderMode: 'whatsapp',
   paymentNote: 'Pay by PayNow on collection.', // TODO(content)
   pickupInfo: 'Pickup is arranged in person. Tell us a good MRT station or area and a time that works.', // TODO(content)
-  recycledPercent: null, // set e.g. 100 once confirmed with the filament supplier
+  shellMaterial: 'PETG', // what the shell is printed from; used across the page copy and JSON-LD
   testResult: null, // set { method, result, sampleSize, chart? } once you've tested properly
   showReviews: false,
   showBehindTheScenes: false,

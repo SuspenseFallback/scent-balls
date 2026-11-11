@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties, type FormEvent } from 'react';
+import { useEffect, useRef, useState, type FormEvent } from 'react';
 import { copy } from '../content/copy';
 import { site } from '../content/site';
 import type { Product } from '../content/types';
@@ -16,6 +16,7 @@ import {
   type OrderLine,
   type ValidationError,
 } from '../lib/orders';
+import { BallArt } from './BallArt';
 
 function Stepper({ label, value, onStep }: { label: string; value: number; onStep: (delta: 1 | -1) => void }) {
   return (
@@ -195,7 +196,7 @@ export function OrderBuilder() {
                   {ready.map((d) => (
                     <div className="line" key={d.id}>
                       <span className="line__label">
-                        <span className="line__dot" style={{ '--c': d.color } as CSSProperties} aria-hidden="true" />
+                        <BallArt design={d} decorative className="line__icon" />
                         {d.name}
                       </span>
                       <Stepper

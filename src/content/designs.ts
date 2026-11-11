@@ -1,68 +1,70 @@
 import type { Design } from './types';
 
-// Colours are data: any hex works. Starting points come from the Wello palette (tokens.css).
-// Set status: 'ready' to make a design orderable.
+// The crew. Colours were sampled from the icons in src/assets/balls; any hex works.
+// Icons: src/assets/balls/cutout/<id>.webp (see scripts/ball-icons.mjs).
+// status: 'ready' = orderable, 'coming-soon' = shown with a chip, 'ultra-rare' = teaser only.
 export const designs: Design[] = [
   {
-    id: 'sleep',
-    name: 'Sleep',
-    theme: 'Rest',
-    color: '#99C5FF', // Wello sky. TODO(content): the real Sleep print is a more saturated blue (about #3B9AD9); match it when photos exist
-    emboss: 'closed eyes, a little zzz and a yawning mouth',
+    id: 'snoozie',
+    name: 'Snoozie',
+    theme: 'Sleep',
+    color: '#76569E', // TODO(content): match the real print
+    emboss: 'closed eyes, a yawning mouth and a trail of zzz',
     tagline: 'Always a bit sleepy. Somehow always fresh.', // TODO(content)
     whoItsFor: 'Night owls, morning snoozers and anyone whose shoes live by the door.', // TODO(content)
     status: 'ready',
-    // photo: 'sleep.jpg', // TODO(content): add a real photo of the prototype
+    // photo: 'snoozie.jpg', // TODO(content): add a real photo of the prototype
   },
   {
-    id: 'shower',
-    name: 'Shower',
-    theme: 'Clean',
-    color: '#8D7ACA', // Wello purple. TODO(content): match the real print
-    emboss: 'placeholder face', // TODO(content)
+    id: 'clem',
+    name: 'Clem',
+    theme: 'Nutrition',
+    color: '#EA8533', // TODO(content): match the real print
+    emboss: 'big round eyes and its tongue poking out',
+    tagline: 'Thinks about snacks more than you do.', // TODO(content)
+    whoItsFor: 'Foodies, meal-preppers and anyone with a lunchbox in their bag.', // TODO(content)
+    status: 'ready',
+  },
+  {
+    id: 'mr-move',
+    name: 'Mr. Move',
+    theme: 'Exercise',
+    color: '#5E6264', // TODO(content): match the real print
+    emboss: 'a kettlebell shape, a red headband, a moustache and a 100 kg label',
+    tagline: 'Never skips leg day. Has no legs.', // TODO(content)
+    whoItsFor: 'Gym-goers, footballers, dancers and the whole CCA team.', // TODO(content)
+    status: 'ready',
+  },
+  {
+    id: 'bubbles',
+    name: 'Bubbles',
+    theme: 'Hygiene',
+    color: '#52B6B3', // TODO(content): match the real print
+    emboss: 'a calm, sleepy smile and soap bubbles',
     tagline: 'First in the queue for the shower after training.', // TODO(content)
     whoItsFor: 'Swimmers, runners and post-gym rinsers.', // TODO(content)
-    status: 'coming-soon',
+    status: 'ready',
   },
   {
-    id: 'skincare',
-    name: 'Skincare',
-    theme: 'Glow',
-    color: '#F3777F', // Wello coral. TODO(content): match the real print
-    emboss: 'placeholder face', // TODO(content)
-    tagline: 'Ten steps, zero shortcuts.', // TODO(content)
-    whoItsFor: 'Anyone with a shelf of serums and a very organised bag.', // TODO(content)
-    status: 'coming-soon',
+    id: 'solace',
+    name: 'Solace',
+    theme: 'Mental health',
+    color: '#EFA0BA', // TODO(content): match the real print
+    emboss: 'a big smile, a plaster and a green ribbon',
+    tagline: 'A little patched up. Still smiling.', // TODO(content)
+    whoItsFor: 'Anyone who’s had a long week and turned up anyway.', // TODO(content)
+    status: 'ready',
   },
   {
-    id: 'hydrate',
-    name: 'Hydrate',
-    theme: 'Water',
-    color: '#7FD3CF', // soft teal (extra pastel). TODO(content): match the real print
-    emboss: 'placeholder face', // TODO(content)
-    tagline: 'Carries a two-litre bottle everywhere.', // TODO(content)
-    whoItsFor: 'Hikers, cyclists and the friend who reminds everyone to drink water.', // TODO(content)
-    status: 'coming-soon',
-  },
-  {
-    id: 'breathe',
-    name: 'Breathe',
-    theme: 'Calm',
-    color: '#9BD8A8', // soft mint (extra pastel). TODO(content): match the real print
-    emboss: 'placeholder face', // TODO(content)
-    tagline: 'In for four, out for four.', // TODO(content)
-    whoItsFor: 'Yoga regulars, deep breathers and calm-in-a-crisis types.', // TODO(content)
-    status: 'coming-soon',
-  },
-  {
-    id: 'move',
-    name: 'Move',
-    theme: 'Energy',
-    color: '#FD7F3A', // Wello orange. TODO(content): match the real print
-    emboss: 'placeholder face', // TODO(content)
-    tagline: 'Never sits still. Neither do your shoes.', // TODO(content)
-    whoItsFor: 'Footballers, dancers and CCA regulars.', // TODO(content)
-    status: 'coming-soon',
+    // Teaser only: never orderable, and no details until there's a name and an icon.
+    id: 'ultra-rare',
+    name: 'Ultra rare',
+    theme: 'Top secret',
+    color: '#1B1D1F', // TODO(content): real colour
+    emboss: 'its design hidden behind a question mark',
+    tagline: 'There’s one more out there. That’s all we’re saying for now.', // TODO(content): name, icon and how people can get one
+    whoItsFor: 'Anyone lucky enough to spot one.', // TODO(content)
+    status: 'ultra-rare',
   },
 ];
 

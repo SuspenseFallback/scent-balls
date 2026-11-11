@@ -1,5 +1,6 @@
 import { copy, safetyLines } from '../content/copy';
 import { site } from '../content/site';
+import { CrewRow } from './CrewRow';
 import { Logo } from './Logo';
 import { StripeBand } from './StripeBand';
 import { WelloBall } from './WelloBall';
@@ -22,6 +23,7 @@ export function Footer({ home = '#top', privacy = 'privacy.html' }: { home?: str
             </p>
             <p className="footer__small">{f.signOffBody}</p>
           </div>
+          <CrewRow />
           <ul className="footer__links">
             <li>
               <a href={site.instagramUrl} rel="noopener noreferrer">

@@ -5,6 +5,7 @@ import { renderToString } from 'react-dom/server';
 import { Home } from './pages/Home';
 import { Privacy } from './pages/Privacy';
 
+
 export const render = {
   'index.html': () => renderToString(<StrictMode><Home /></StrictMode>),
   'privacy.html': () => renderToString(<StrictMode><Privacy /></StrictMode>),

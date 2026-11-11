@@ -22,7 +22,7 @@ export function Proof() {
         <SectionHead id="proof-title" eyebrow={p.eyebrow} title={p.title} />
         <div className="grid-3 proof__grid">
           {test && (
-            <Reveal as="article" className="card">
+            <Reveal as="article" index={1} className="card">
               <h3>{p.testTitle}</h3>
               <dl className="test-meta">
                 <dt>Method</dt>
@@ -51,8 +51,8 @@ export function Proof() {
             </Reveal>
           )}
           {showReviews &&
-            reviews.slice(0, 3).map((r) => (
-              <Reveal as="figure" key={r.quote} className="card review">
+            reviews.slice(0, 3).map((r, i) => (
+              <Reveal as="figure" key={r.quote} index={i + 2} className="card review">
                 <blockquote>“{r.quote}”</blockquote>
                 <figcaption>
                   {r.name}
@@ -61,7 +61,7 @@ export function Proof() {
               </Reveal>
             ))}
           {showBts && (
-            <Reveal as="figure" className="bts">
+            <Reveal as="figure" index={3} className="bts">
               <PhotoSlot ratio="4x3" photo={p.btsPhoto} label="photo: behind the scenes" alt={p.btsCaption} />
               <figcaption className="note">{p.btsCaption}</figcaption>
             </Reveal>

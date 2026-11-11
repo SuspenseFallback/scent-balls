@@ -1,6 +1,7 @@
 import { copy } from '../content/copy';
 import { site } from '../content/site';
 import { accentFor } from '../content/theme';
+import { CrewRow } from './CrewRow';
 import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
 
@@ -28,12 +29,13 @@ export function WhyDifferent() {
         <SectionHead id="diff-title" eyebrow={d.eyebrow} title={d.title} />
         <div className="grid-3">
           {d.usps.map((u, i) => (
-            <Reveal as="article" key={u.title} className="card usp">
+            <Reveal as="article" key={u.title} index={i + 1} className="card usp">
               <span className="usp__icon" aria-hidden="true">
                 {i + 1}
               </span>
               <h3>{u.title}</h3>
               <p className="muted">{u.body}</p>
+              {u.title === 'Make it yours' && <CrewRow className="usp__crew" />}
             </Reveal>
           ))}
         </div>

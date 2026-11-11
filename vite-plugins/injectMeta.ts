@@ -69,7 +69,7 @@ export function injectMeta({ base }: { base: string }): Plugin {
             name: `${site.brandName} ${p.name}`,
             description: p.description,
             brand: { '@type': 'Brand', name: site.brandName },
-            material: 'Recycled PLA',
+            material: site.shellMaterial,
             offers: {
               '@type': 'Offer',
               price: p.priceSGD.toFixed(2),

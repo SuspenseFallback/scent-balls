@@ -1,6 +1,6 @@
 import type { FaqItem } from './types';
 import { site } from './site';
-import { safetyLines, shellMaterial } from './copy';
+import { safetyLines } from './copy';
 
 export const faq: FaqItem[] = [
   {
@@ -50,7 +50,7 @@ export const faq: FaqItem[] = [
     id: 'material',
     q: 'What’s it made of?',
     a: [
-      `The shell is 3D-printed from ${shellMaterial()}. Inside: activated charcoal and natural volcanic lava stone.`,
+      `The shell is 3D-printed from ${site.shellMaterial}, which is 100% recyclable. Inside: activated charcoal and natural volcanic lava stone.`,
     ],
   },
   {
@@ -69,6 +69,14 @@ export const faq: FaqItem[] = [
   {
     id: 'gift',
     q: 'Is it a good gift?',
-    a: ['We think so. The 3-pack comes in a fabric pouch, and there are six characters to collect.'],
+    a: ['We think so. The 3-pack comes in a fabric pouch, and there are five characters to collect, plus an ultra rare one.'],
+  },
+  {
+    id: 'themes',
+    q: 'Do the themes mean it helps with my sleep or mental health?',
+    a: [
+      'No. Snoozie, Clem, Mr. Move, Bubbles and Solace are characters, and their themes are just for fun. It’s a scent ball for your shoes and bags, not a health product.',
+      'If you’re having a hard time, please talk to someone you trust or a professional.',
+    ],
   },
 ];

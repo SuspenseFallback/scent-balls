@@ -5,6 +5,7 @@ import { publicUrl } from '../lib/photos';
 import { prefersReducedMotion } from '../lib/useInView';
 import { AirflowDiagram, type StepId } from './AirflowDiagram';
 import { PhotoSlot } from './PhotoSlot';
+import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
 
 export function HowItWorks() {
@@ -25,7 +26,7 @@ export function HowItWorks() {
             {copy.how.steps.map((s, i) => {
               const on = step === s.id;
               return (
-                <li key={s.id}>
+                <Reveal as="li" key={s.id} index={i + 1}>
                   <button type="button" className="step" aria-pressed={on} onClick={() => setStep(on ? null : s.id)}>
                     <span className="step__num" aria-hidden="true">
                       {i + 1}
@@ -35,7 +36,7 @@ export function HowItWorks() {
                       <span className="step__text">{s.body}</span>
                     </span>
                   </button>
-                </li>
+                </Reveal>
               );
             })}
           </ol>

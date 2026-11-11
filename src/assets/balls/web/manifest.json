@@ -1,0 +1,27 @@
+{
+  "snoozie": {
+    "width": 804,
+    "height": 801,
+    "loop": 0.0473
+  },
+  "clem": {
+    "width": 804,
+    "height": 801,
+    "loop": 0.0473
+  },
+  "mr-move": {
+    "width": 804,
+    "height": 801,
+    "loop": 0.0075
+  },
+  "bubbles": {
+    "width": 804,
+    "height": 801,
+    "loop": 0.0473
+  },
+  "solace": {
+    "width": 804,
+    "height": 801,
+    "loop": 0.0473
+  }
+}

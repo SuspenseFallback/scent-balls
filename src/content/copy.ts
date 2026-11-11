@@ -1,11 +1,4 @@
-import type { DesignId, Review } from './types';
-import { site } from './site';
-
-/** "X% recycled PLA" only when the percentage is confirmed. */
-export const shellMaterial = () =>
-  site.recycledPercent != null ? `${site.recycledPercent}% recycled PLA` : 'recycled PLA';
-
-const cap = (t: string) => t.charAt(0).toUpperCase() + t.slice(1);
+import type { DesignId, Review, WeatherIconName } from './types';
 
 export const safetyLines = [
   'Not a toy. Keep away from young children and pets.',
@@ -29,16 +22,15 @@ export const copy = {
       'A little reusable ball with charcoal and a lava stone inside. Spray your own cologne or deodorant on the stone, close it up, and drop it in your shoes, gym bag or locker.',
     primaryCta: 'Reserve yours',
     secondaryCta: 'See how it works',
-    chips: ['Reusable', 'Your own scent', 'Replaceable parts', `${cap(shellMaterial())} shell`],
   },
   problem: {
     eyebrow: 'The sticky truth',
     title: 'Singapore weather follows you everywhere.',
     cards: [
-      { title: 'The 6pm MRT', body: 'Thirty-two degrees, one packed carriage, and your bag was there for all of it.' },
-      { title: 'The gym bag', body: "Yesterday's towel and today's shirt have been sharing a zip for a while now." },
-      { title: 'Shoes after CCA', body: 'They did their best out there. Now they need a little help before tomorrow.' },
-    ],
+      { icon: 'temperature', title: 'The 6pm MRT', body: 'Thirty-two degrees, one packed carriage, and your bag was there for all of it.' },
+      { icon: 'sun', title: 'The gym bag', body: "Yesterday's towel and today's shirt have been sharing a zip for a while now." },
+      { icon: 'humidity', title: 'Shoes after CCA', body: 'They did their best out there. Now they need a little help before tomorrow.' },
+    ] as { icon: WeatherIconName; title: string; body: string }[],
   },
   how: {
     eyebrow: 'How it works',
@@ -76,7 +68,7 @@ export const copy = {
         title: 'Charcoal + your scent',
         body: 'Activated charcoal helps absorb odour, while the lava stone carries the fragrance you already like.',
       },
-      { title: 'Make it yours', body: 'Six characters, six colours. Pick one for your mood, your bag or your friend.' },
+      { title: 'Make it yours', body: 'Five characters, five colours and one ultra rare surprise. Pick one for your mood, your bag or your friend.' },
     ],
     tableCaption: 'How it compares',
     columns: ['Disposable sachets', 'Room sprays'],
@@ -90,8 +82,8 @@ export const copy = {
   },
   crew: {
     eyebrow: 'Meet the crew',
-    title: 'Collect all six. Give one to a friend.',
-    body: 'Each ball has its own colour and its own face. Sleep is ready now. The rest of the crew is on the way.',
+    title: 'Collect all five. Give one to a friend.',
+    body: 'Each ball has its own colour and its own face. All five are in production now, and there’s one ultra rare ball we’re keeping quiet about.',
     pouch: 'Getting one for someone? The 3-pack comes in a fabric pouch, ready to gift.',
     pickerLabel: 'Choose a design',
     whoLabel: 'Who it’s for',
@@ -103,18 +95,17 @@ export const copy = {
     title: 'Small enough for anywhere that gets stuffy.',
     // TODO(content): add photos. photo = filename in src/assets/photos (4:3 works best); slot is the placeholder label until then.
     items: [
-      { id: 'shoes', slot: 'ball in a sneaker', dot: 'sleep', label: 'Shoes', body: 'One in each pair overnight.', photo: undefined },
-      { id: 'gym', slot: 'gym bag side pocket', dot: 'move', label: 'Gym bag', body: 'Lives in the side pocket.', photo: undefined },
-      { id: 'school', slot: 'school bag', dot: 'breathe', label: 'School bag', body: 'Next to the PE kit.', photo: undefined },
-      { id: 'locker', slot: 'locker shelf', dot: 'shower', label: 'Locker', body: 'Sits in the corner, quietly.', photo: undefined },
-      { id: 'wardrobe', slot: 'hanging in wardrobe', dot: 'skincare', label: 'Wardrobe', body: 'Hang it from the rail.', photo: undefined },
-      { id: 'hang', slot: 'hanging from bag zip', dot: 'hydrate', label: 'Hang it on your bag', body: 'Loop it onto a zip or strap.', photo: undefined },
-    ] as { id: string; slot: string; dot: DesignId; label: string; body: string; photo?: string }[],
+      { id: 'shoes', slot: 'ball in a sneaker', designId: 'snoozie', label: 'Shoes', body: 'One in each pair overnight.', photo: undefined },
+      { id: 'gym', slot: 'gym bag side pocket', designId: 'mr-move', label: 'Gym bag', body: 'Lives in the side pocket.', photo: undefined },
+      { id: 'school', slot: 'school bag', designId: 'clem', label: 'School bag', body: 'Next to the PE kit.', photo: undefined },
+      { id: 'locker', slot: 'locker shelf', designId: 'bubbles', label: 'Locker', body: 'Sits in the corner, quietly.', photo: undefined },
+      { id: 'wardrobe', slot: 'hanging in wardrobe', designId: 'solace', label: 'Wardrobe', body: 'Hang it from the rail.', photo: undefined },
+      { id: 'hang', slot: 'hanging from bag zip', designId: 'snoozie', label: 'Hang it on your bag', body: 'Loop it onto a zip or strap.', photo: undefined },
+    ] as { id: string; slot: string; designId: DesignId; label: string; body: string; photo?: string }[],
   },
   madeBetter: {
     eyebrow: 'Made a little better',
     facts: [
-      { title: `${cap(shellMaterial())} shell`, body: () => `The shell is 3D-printed from ${shellMaterial()}.` },
       { title: 'Natural lava stone', body: () => 'The scent carrier is a piece of natural volcanic lava stone.' },
       { title: 'Replace parts, keep the ball', body: () => 'Swap the charcoal or the stone instead of replacing the whole ball.' },
     ],
@@ -174,11 +165,15 @@ export const copy = {
   privacy: {
     back: '← Back to site',
     title: 'Privacy',
-    lead: 'Short version: this site doesn’t collect or store your personal data.',
+    lead: 'Short version: nothing you type here is sent to us or saved, and we only measure visits in aggregate.',
     sections: [
       {
         title: 'What this site stores',
-        body: 'Nothing. There are no accounts, no cookies, no analytics and no tracking pixels. The order form runs in your browser, and nothing you type is sent to us or saved.',
+        body: 'No accounts and no tracking pixels. The order form runs in your browser, and nothing you type is sent to us or saved.',
+      },
+      {
+        title: 'Visit statistics',
+        body: 'We use Vercel Web Analytics to see how many people visit and which pages they view. For each visit it records the page address, the referring site, your approximate location, and your device and browser type. It uses no third-party cookies. It recognises a visit using a hash of the request, and that visitor session is discarded after 24 hours. We only look at the totals, and your order details are never included.',
       },
       {
         title: 'How orders work',
@@ -195,7 +190,7 @@ export const copy = {
     ],
     contactTitle: 'Contact',
     contactBody: 'Questions about your data under Singapore’s PDPA? Email',
-    updated: 'Last updated October 2026', // TODO(content): update when this page changes
+    updated: 'Last updated November 2026', // TODO(content): update when this page changes
   },
 };
 

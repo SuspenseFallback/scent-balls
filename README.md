@@ -1,6 +1,6 @@
 # Wello
 
-Single-page marketing site for Wello, the reusable scent ball. Vite + React 18 + TypeScript, plain CSS, no backend, no cookies, no analytics. Pages are prerendered to static HTML at build time, so the content and link previews work before (and without) JavaScript.
+Single-page marketing site for Wello, the reusable scent ball. Vite + React 18 + TypeScript, plain CSS, no backend, no cookies of its own, and privacy-friendly visit counts from Vercel Web Analytics. Pages are prerendered to static HTML at build time, so the content and link previews work before (and without) JavaScript.
 
 ```bash
 npm install
@@ -10,6 +10,7 @@ npm run preview        # serve dist/ locally
 npm run check:content  # list every TODO(content) placeholder; fails if any remain
 npm run check:contrast # WCAG contrast of every colour pair the site uses; fails below AA
 npm run brand:assets   # regenerate favicon.svg + og-image.png (also runs on every build)
+npm run balls:icons    # cut the character icons out of their white backgrounds
 ```
 
 ## Editing content (no component changes needed)
@@ -19,7 +20,7 @@ Everything you'd normally change lives in `src/content/`:
 | File | What's in it |
 | --- | --- |
 | `site.ts` | Brand name, tagline, description, URL, contact email, WhatsApp number, socials, order mode, payment note, pickup info, and the feature flags below |
-| `designs.ts` | The six designs: name, theme, colour, face description, tagline, who it's for, `status`, `photo` |
+| `designs.ts` | The five characters and the ultra rare teaser: name, theme, colour, face description, tagline, who it's for, `status`, `photo` |
 | `products.ts` | What can be ordered: single ball, 3-pack pouch, (commented-out) refills, prices, optional `checkoutUrl` |
 | `faq.ts` | FAQ questions and answers |
 | `copy.ts` | All other page text: hero, sections, comparison table, order form labels, privacy page, safety lines, reviews |
@@ -30,13 +31,26 @@ Every placeholder is marked `TODO(content)`. Run `npm run check:content` to see 
 
 ### Making a design orderable
 
-In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. It then gets an order button in "Meet the crew", a quantity row in the order form, and appears in the 3-pack design pickers. While a design is coming soon it shows a "Coming soon" chip and its placeholder face (the faces live in `src/components/BallArt.tsx`).
+In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. It then gets an order button in "Meet the crew", a quantity row in the order form, and appears in the 3-pack design pickers. While a design is coming soon it shows a "Coming soon" chip and can't be ordered. The ultra rare entry (`status: 'ultra-rare'`) is a teaser: it appears in the crew with a hidden silhouette and can never be ordered. When it's ready to reveal, give it a real name, details and icon, and set its status.
+
+### Character icons
+
+The source art is the SVGs in `src/assets/balls/` (`snoozie.svg`, `clem.svg`, `mrmove.svg`, `bubbles.svg`, `solace.svg`). `npm run balls:icons` prepares web copies in `src/assets/balls/web/<id>.svg` plus `manifest.json`. For each icon it:
+
+- removes hidden layers (such as the reference image the art was traced from),
+- turns text (the Z's, "1 kg") into shapes, since an SVG shown as an image can't load fonts (the fonts come from `@fontsource/source-sans-3` and `@fontsource/nanum-pen-script`),
+- makes the loop's opening see-through so the section colour shows through it,
+- puts every icon on the same canvas size, centred on its loop and aligned at the bottom. The source art is drawn at one scale, so every ball shows at the same size wherever icons share a box (Snoozie's Z's and Mr. Move's tall handle just use the spare room), and each hangs straight from the hero string.
+
+The site only uses the web copies: hero, scrolling band, "Make it yours", crew picker, where-it-goes placeholders, order form and footer. To replace an icon, overwrite its SVG and run the script. To add one, add it to `ICONS` in `scripts/ball-icons.mjs`. If new art uses another font, add that font to `FONTS` there. The old PNGs in that folder are no longer used.
+
+A `photo` on a design takes priority over its icon.
 
 ## Brand
 
-The brand is **Wello**: a wordmark "WELLO" in Anton where the O is a striped ball with a hanging loop (reference: `src/assets/brand/reference/wello-logo.png`). In running text, write "Wello". The striped ball is the brand mascot (header, favicon, footer, dividers). It is **not** a product picture: the products are the six character balls.
+The brand is **Wello**: a wordmark "WELLO" in Anton where the O is a striped ball with a hanging loop (reference: `src/assets/brand/reference/wello-logo.png`). In running text, write "Wello". The striped ball is the brand mascot (header, favicon, footer, dividers). It is **not** a product picture: the products are the character balls.
 
-Tone: friendly and a little cheeky. The name hints at wellness, but make **no health, hygiene-benefit or wellness claims**. The self-care themes of the six designs are a vibe, not a promise.
+Tone: friendly and a little cheeky. The name hints at wellness, but make **no health, hygiene-benefit or wellness claims**. The self-care themes of the characters (sleep, nutrition, exercise, hygiene, mental health) are a vibe, not a promise. Keep taglines about the character's personality, never about what the ball does for the person.
 
 ### Palette (`src/styles/tokens.css`)
 
@@ -84,7 +98,7 @@ Display is **Anton** (`@fontsource/anton`, Latin subset): uppercase, slightly tr
    - Design photos: square, about 1200×1200, ball on a plain or transparent background.
    - Use-case photos: 4:3, about 1200×900.
 2. Reference them by file name:
-   - `designs.ts`: `photo: 'sleep.jpg'`. The photo replaces the illustration in the hero and in "Meet the crew".
+   - `designs.ts`: `photo: 'snoozie.jpg'`. The photo replaces the icon wherever that character appears.
    - `copy.ts` → `useCases.items`: `photo: 'shoes.jpg'`. Replaces the striped placeholder.
    - `copy.ts` → `proof.btsPhoto` for the behind-the-scenes photo.
 3. For the how-it-works video, put a short muted MP4 in `public/` and set `copy.how.video.src` (and optionally `poster`).
@@ -110,7 +124,6 @@ All of these stay hidden until you turn them on. Never publish made-up results o
   Only once this is set should copy anywhere mention durations or comparisons.
 - **Reviews:** add real quotes (with permission) to `reviews` in `copy.ts`, then set `showReviews: true`. Up to three are shown.
 - **Behind the scenes:** set `showBehindTheScenes: true` and add `proof.btsPhoto`.
-- **Recycled percentage:** set `recycledPercent: 100` (or the confirmed figure) and the copy changes to "100% recycled PLA" everywhere.
 - **Made in Singapore:** `madeInSingapore: true` adds "Designed in Singapore" to the footer (wording in `copy.footer.madeIn`).
 - **"What we're still working on"** note: set `copy.madeBetter.stillWorkingOn`.
 
@@ -136,15 +149,31 @@ All order logic is in **`src/lib/orders.ts`**.
 ## How it's put together
 
 - `src/pages/Home.tsx` lists the sections in order; each section is a component in `src/components/`.
-- `src/components/BallArt.tsx` draws the ball as an inline SVG (sphere, loop, seam, holes and face in the design's colour) whenever there's no photo. Its alt text says "illustration".
+- `src/components/BallArt.tsx` shows a character: its photo if there is one, otherwise its icon (alt text says "illustration"), or a silhouette for the ultra rare ball.
 - `vite-plugins/injectMeta.ts` writes the title, description, canonical, Open Graph, Twitter tags and JSON-LD Product schema (no ratings or reviews) into the HTML at build time, because WhatsApp and Telegram link previews don't run JavaScript. It also sets the theme colour from `--brand` and preloads the two font files.
 - `src/entry-server.tsx` + `scripts/prerender.mjs` render each page to static HTML after the build; the browser then hydrates it.
 - Motion is CSS only, plus one IntersectionObserver hook (`src/lib/useInView.ts`). Everything is static with `prefers-reduced-motion`.
 
+## Motion
+
+All CSS, and all of it is switched off with `prefers-reduced-motion`.
+
+- **Landing intro:** the header slides down, the headline rises word by word, then the text and buttons, then the ball drops in on its string and the hero stripes sweep across. It's in the "Landing intro" block of `global.css`.
+- **Scroll reveals:** `<Reveal index={n}>` delays each item by n × 90 ms, so cards, steps and FAQ items appear one after another. Section headings reveal eyebrow, then title, then intro.
+- **Buttons:** the primary lifts off a stack of the four logo stripes with a shine sweep, and the secondary fills with ink from the left. Both squash when pressed.
+
+## Analytics
+
+Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page. Use the `@vercel/analytics/react` entry point: the `/next` and `/nuxt` ones are for other frameworks, and `/nuxt` breaks this build because it needs Vue.
+
+- It only reports on Vercel, and only after you enable Web Analytics for the project in the Vercel dashboard. Then redeploy.
+- With `npm run preview` or on another host, `/_vercel/insights/script.js` returns a 404. That's expected on those hosts.
+- Never put personal details in URLs or custom events, since those get sent to Vercel. If you add analytics data or change provider, update the privacy page (`copy.privacy`).
+
 ## Copy rules (keep these when editing)
 
 - Say "helps absorb" and "designed for airflow". Never "eliminates", "kills germs", "non-toxic", "biodegradable", "compostable", an unqualified "eco-friendly", or "pushes out air".
-- Sustainability is a supporting message, facts only: recycled PLA shell, natural volcanic lava stone, replaceable parts. No claims about where the charcoal comes from.
+- Sustainability is a supporting message, facts only: natural volcanic lava stone, replaceable parts. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
 - No durations ("lasts a week") or comparisons ("better than…") until `testResult` is set.
 - Never invent reviews or names. "Made/Designed in Singapore" only with the flag on.
 - Keep the safety lines in the FAQ and footer (`safetyLines` in `copy.ts`).
@@ -160,9 +189,10 @@ All order logic is in **`src/lib/orders.ts`**.
 - [ ] WhatsApp order tested on a real phone, and the message arrives on the right number
 - [ ] Prices, pouch details, payment note and pickup info confirmed (`products.ts`, `site.ts`)
 - [ ] Design colours matched to the real prints; taglines and "who it's for" final (`designs.ts`)
-- [ ] Faces drawn for any design switched to `ready`
-- [ ] Real photos added (at least Sleep + the use-case grid); OG preview checked
-- [ ] `recycledPercent` set only if confirmed by the filament supplier
+- [ ] Higher-resolution icons added (the current ones are only 200–245px wide)
+- [ ] Ultra rare ball: name, icon and how people can get one
+- [ ] Recyclability wording in the FAQ checked for how the ball can actually be recycled in Singapore
+- [ ] Real photos added (at least Snoozie + the use-case grid); OG preview checked
 - [ ] Any test results, reviews or behind-the-scenes content is real before turning it on
 - [ ] Privacy page "Last updated" date correct
 - [ ] `npm run check:content` passes (no `TODO(content)` left)

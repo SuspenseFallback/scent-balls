@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="55 83 804 801" width="804" height="801">
+<defs>
+<style>
+.cls-1{fill:#f5823a;stroke:#000000;stroke-miterlimit:10}
+.cls-2{fill:#ffffff;stroke:#000000;stroke-miterlimit:10}
+.cls-3{fill:#e66736;stroke:#000000;stroke-miterlimit:10}
+.cls-4{fill:#f5823a}
+.cls-5{fill:none;stroke:#000000;stroke-width:15;stroke-miterlimit:10}
+.cls-6{fill:#e3455f;stroke:#000000;stroke-width:5;stroke-miterlimit:10}
+.cls-7{fill:none;stroke:#000000;stroke-width:5;stroke-miterlimit:10}
+.cls-8{fill:#222023;stroke:#000000;stroke-miterlimit:10}
+.cls-9{fill:#000000}
+</style>
+</defs>
+<g id="Layer_1" data-name="Layer 1"><mask id="clem-loop" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000"><rect x="-5000" y="-5000" width="10000" height="10000" fill="#fff"/><ellipse cx="457.612" cy="270.421" rx="45.4" ry="110.357" fill="#000"/></mask><g mask="url(#clem-loop)">
+<ellipse cx="459.862" cy="232.344" rx="79.406" ry="110.357" class="cls-1"/>
+</g><ellipse cx="457.612" cy="270.421" rx="45.4" ry="110.357" class="cls-2" style="fill:none"/>
+<ellipse cx="458.157" cy="560.941" rx="317.288" ry="317.072" class="cls-3"/>
+<ellipse cx="445.271" cy="554.283" rx="299.276" ry="299.072" class="cls-4"/>
+<path d="M1000 639.715" class="cls-5"/>
+<path d="M487.541 721.193 C480.14 744.173 501.445 792.171 527.483 793.466 C551.121 794.643 562.322 749.27 560.487 730.281 C558.97 714.595 546.268 710.614 537.697 699.585" class="cls-6"/>
+<path d="M516.595 715.391 L515.537 713.124 C515.537 722.249 521.189 754.549 526.367 761.551" class="cls-7"/>
+<g>
+<ellipse cx="389.754" cy="460.626" rx="55.517" ry="73.891" class="cls-2"/>
+<ellipse cx="389.645" cy="460.455" rx="44.408" ry="59.105" class="cls-8"/>
+<ellipse cx="408.904" cy="448.356" rx="15.352" ry="20.103" class="cls-2"/>
+</g>
+<g>
+<ellipse cx="534.904" cy="460.356" rx="55.517" ry="73.891" class="cls-2"/>
+<ellipse cx="534.795" cy="460.185" rx="44.408" ry="59.105" class="cls-8"/>
+<ellipse cx="554.054" cy="448.086" rx="15.352" ry="20.103" class="cls-2"/>
+</g>
+<path d="M356.342 696.975 C355.676 691.32 363.215 686.238 369.994 688.277 C377.906 690.656 384.133 696.39 391.147 699.991 C412.598 711.002 434.807 716.458 460.305 716.762 C482.903 717.031 506.09 710.367 524.422 700.038 C530.633 696.539 536.201 691.56 542.759 688.574 C548.724 685.858 558.306 686.163 559.861 693.08 C562.487 704.757 530.432 721.435 519.51 726.438 C478.791 745.09 428.446 742.843 388.856 723.33 C379.473 718.705 357.453 706.416 356.342 696.975 Z" class="cls-9"/>
+</g>
+</svg>

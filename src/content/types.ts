@@ -1,4 +1,7 @@
-export type DesignId = 'sleep' | 'shower' | 'skincare' | 'hydrate' | 'breathe' | 'move';
+/** Icons for the "sticky truth" cards (drawn in src/components/WeatherIcon.tsx). */
+export type WeatherIconName = 'temperature' | 'sun' | 'humidity';
+
+export type DesignId = 'snoozie' | 'clem' | 'mr-move' | 'bubbles' | 'solace' | 'ultra-rare';
 
 export interface Design {
   id: DesignId;
@@ -11,8 +14,8 @@ export interface Design {
   emboss: string;
   tagline: string;
   whoItsFor: string;
-  status: 'ready' | 'coming-soon';
-  /** Filename inside src/assets/photos, e.g. "sleep.jpg". Square images, 1200×1200 recommended. */
+  status: 'ready' | 'coming-soon' | 'ultra-rare';
+  /** Filename inside src/assets/photos, e.g. "snoozie.jpg". Square images, 1200×1200 recommended. */
   photo?: string;
 }
 
@@ -74,7 +77,7 @@ export interface SiteConfig {
   orderMode: 'whatsapp' | 'checkout-links';
   paymentNote: string;
   pickupInfo: string;
-  recycledPercent: number | null;
+  shellMaterial: string;
   testResult: TestResult | null;
   showReviews: boolean;
   showBehindTheScenes: boolean;

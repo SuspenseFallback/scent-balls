@@ -65,7 +65,7 @@ export function Crew() {
         <div className="crew__grid">
           <div className="crew__stage">
             <div className="crew__ball">
-              <BallArt key={cur.id} design={cur} size={360} />
+              <BallArt key={cur.id} design={cur} loading="eager" />
             </div>
           </div>
           <div className="crew__info">
@@ -89,7 +89,9 @@ export function Crew() {
                     className="swatch"
                     onClick={() => pick(d.id)}
                   >
-                    <span className="swatch__dot" style={{ '--c': d.color } as CSSProperties} aria-hidden="true" />
+                    <span className="swatch__dot">
+                      <BallArt design={d} decorative />
+                    </span>
                     <span>{d.name}</span>
                   </button>
                 );
@@ -99,7 +101,7 @@ export function Crew() {
               <div className="crew__name">
                 <h3 className="crew__title">{cur.name}</h3>
                 <span className="chip chip--plain">{cur.theme}</span>
-                {!ready && <span className="chip chip--soon">{copy.crew.comingSoon}</span>}
+                {cur.status === 'coming-soon' && <span className="chip chip--soon">{copy.crew.comingSoon}</span>}
               </div>
               <p className="lead crew__tagline">{cur.tagline}</p>
             </div>
