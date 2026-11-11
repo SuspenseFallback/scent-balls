@@ -1,4 +1,4 @@
-export type StepId = 'spray' | 'close' | 'place';
+export type StepId = 'spray' | 'close' | 'place' | 'refresh';
 
 // Charcoal granules in the lower chamber (deterministic so SSR and client match).
 const charcoal: { x: number; y: number; r: number }[] = [];

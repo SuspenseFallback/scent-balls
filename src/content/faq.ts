@@ -15,27 +15,27 @@ export const faq: FaqItem[] = [
     id: 'how-long',
     q: 'How long does it last?',
     a: [
-      'We’re still testing this properly, so we won’t put a number on it yet.',
-      'It depends on your fragrance, how much you spray and where you keep the ball. When the scent fades, spray the stone again.',
+      'It depends on your fragrance, how much you spray and where you keep the ball.',
+      'Whenever you notice the scent fading, give the stone a fresh spritz and it’s good to go again.',
     ],
   },
   {
     id: 'fragrances',
     q: 'Which fragrances work?',
     a: [
-      'Most spray colognes, perfumes, body sprays and deodorant sprays. Spray lightly; more isn’t better.',
+      'Most spray colognes, perfumes, body sprays and deodorant sprays. A spritz or two is plenty.',
       'Let the stone dry before closing so the charcoal stays dry.',
     ],
   },
   {
     id: 'replace',
-    q: 'Can I replace the charcoal or the stone?',
-    a: ['Yes. Both are replaceable, so you keep the ball and swap the parts. Refill packs are coming; until then, message us.'],
+    q: 'Can I refill the charcoal and stone?',
+    a: ['Yes. Both are refillable, so the ball you love keeps going. Refill packs are on the way; until then, just message us.'],
   },
   {
     id: 'safe',
     q: 'Is it safe?',
-    a: ['Please use it sensibly:'],
+    a: ['A few simple guidelines:'],
     list: safetyLines,
   },
   {
@@ -69,7 +69,15 @@ export const faq: FaqItem[] = [
   {
     id: 'gift',
     q: 'Is it a good gift?',
-    a: ['We think so. The 3-pack comes in a fabric pouch, and there are five characters to collect, plus an ultra rare one.'],
+    a: ['We think so. Every ball comes in a blind box, so neither of you knows which character is inside until it’s opened.'],
+  },
+  {
+    id: 'blind-box',
+    q: 'Can I choose which character I get?',
+    a: [
+      'Not right now. Every Wello comes in a blind box, so each one is a surprise: Snoozie, Clem, Mr. Move, Bubbles, Solace, or, if you’re lucky, the ultra rare one.',
+      'You might get a double. That’s half the fun: swap with a friend.',
+    ],
   },
   {
     id: 'themes',

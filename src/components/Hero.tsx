@@ -12,6 +12,7 @@ export function Hero() {
       <StripeBand variant="hero" className="hero__stripes" />
       <div className="container hero__grid">
         <div className="hero__copy">
+          <p className="hero__badge">{copy.hero.badge}</p>
           <h1 id="hero-title" className="hero__title">
             {/* Each word rises in on load (CSS); the heading still reads as one sentence. */}
             {copy.hero.headline.split(' ').map((word, i) => (

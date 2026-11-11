@@ -5,7 +5,7 @@ export const site: SiteConfig = {
   brandName: 'Wello',
   tagline: 'Say Wello to fresh.', // TODO(content): confirm tagline
   description:
-    'A small reusable ball with activated charcoal and a lava stone you scent yourself. For shoes, gym bags, school bags, lockers and wardrobes.', // TODO(content)
+    'A reusable scent ball with activated charcoal that helps absorb odour and a natural lava stone you scent with your own fragrance. Comes in a blind box with one of five characters inside. For shoes, gym bags, lockers and wardrobes.', // TODO(content)
   siteUrl: 'https://example.com', // TODO(content): production URL, no trailing slash
   // Generated on every build by scripts/brand-assets.mjs (wordmark + ball, 1200×630 PNG).
   // Set to a different file in /public to use your own, or null for none.

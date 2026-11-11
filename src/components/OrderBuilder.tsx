@@ -17,6 +17,7 @@ import {
   type ValidationError,
 } from '../lib/orders';
 import { BallArt } from './BallArt';
+import { CrewRow } from './CrewRow';
 
 function Stepper({ label, value, onStep }: { label: string; value: number; onStep: (delta: 1 | -1) => void }) {
   return (
@@ -144,9 +145,28 @@ export function OrderBuilder() {
               <span className="legend__price">
                 {' '}
                 · {formatPrice(p.priceSGD)}
-                {p.type === 'ball' ? ` ${o.singleSuffix}` : ''}
+                {p.type === 'ball' || p.type === 'blind-box' ? ` ${o.singleSuffix}` : ''}
               </span>
             );
+
+            if (p.type === 'blind-box') {
+              return (
+                <fieldset key={p.id}>
+                  <legend>
+                    {p.name}
+                    {priceNote}
+                  </legend>
+                  <div className="line line--plain">
+                    <span className="line__label">{o.boxesLabel}</span>
+                    <Stepper label={`${p.name} quantity`} value={qty[key(p.id)] ?? 0} onStep={(d) => stepQty(key(p.id), d)} />
+                  </div>
+                  <div className="blindbox__odds">
+                    <p className="note">{o.couldBe}</p>
+                    <CrewRow />
+                  </div>
+                </fieldset>
+              );
+            }
 
             if (p.type === 'pouch-set') {
               const myPacks = packs[p.id] ?? [];

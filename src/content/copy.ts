@@ -16,42 +16,50 @@ export const copy = {
   ],
   hero: {
     // Shown uppercase in Anton. Keep it short: long display headlines get hard to read.
-    headlineOptions: ['Say Wello to fresh shoes.', 'Say Wello to a fresher gym bag.', 'Meet the crew that keeps things fresh.'],
-    headline: 'Say Wello to fresh shoes.', // TODO(content): pick final headline (one of headlineOptions, or your own)
+    headlineOptions: ['Say Wello to freshness.', 'Say Wello to a fresher gym bag.', 'Meet the crew that keeps things fresh.'],
+    headline: 'Say Wello to freshness.', // TODO(content): pick final headline (one of headlineOptions, or your own)
     subhead:
-      'A little reusable ball with charcoal and a lava stone inside. Spray your own cologne or deodorant on the stone, close it up, and drop it in your shoes, gym bag or locker.',
-    primaryCta: 'Reserve yours',
+      'A reusable scent ball with activated charcoal that helps absorb odour and a natural lava stone that diffuses your scent. Customise it with your own cologne or perfume, then simply drop it in your shoes, gym bag or locker!',
+    // Small line above the headline.
+    badge: 'Blind box · 5 characters to collect',
+    primaryCta: 'Reserve a blind box',
     secondaryCta: 'See how it works',
   },
   problem: {
     eyebrow: 'The sticky truth',
     title: 'Singapore weather follows you everywhere.',
     cards: [
-      { icon: 'temperature', title: 'The 6pm MRT', body: 'Thirty-two degrees, one packed carriage, and your bag was there for all of it.' },
-      { icon: 'sun', title: 'The gym bag', body: "Yesterday's towel and today's shirt have been sharing a zip for a while now." },
-      { icon: 'humidity', title: 'Shoes after CCA', body: 'They did their best out there. Now they need a little help before tomorrow.' },
+      { icon: 'temperature', title: 'Unbearable heat', body: 'You deal with thirty-five degree weather all day long. So does your bag.' },
+      { icon: 'sun', title: 'Sweltering sun', body: 'Your gym bag soaks up every sweaty session.' },
+      { icon: 'humidity', title: 'Heavy humidity', body: "High humidity levels can make your belongings feel sticky and uncomfortable." },
     ] as { icon: WeatherIconName; title: string; body: string }[],
   },
   how: {
-    eyebrow: 'How it works',
-    title: 'Spray it, close it, drop it in.',
+    eyebrow: 'The secret behind the magic',
+    title: 'Spray. Close. Repeat.',
     steps: [
       {
         id: 'spray' as const,
         title: 'Spray the stone',
-        body: 'Unscrew the ball, take out the lava stone and give it a spray of your own cologne or deodorant. Let it dry for a minute.',
+        body: 'Unscrew the ball, take out the lava stone and give it 1–2 sprays of your favourite cologne or deodorant. Let it dry for a minute.',
       },
       {
         id: 'close' as const,
         title: 'Close it up',
-        body: 'Pop the stone back in and screw the halves together. The divider keeps the stone and the charcoal apart.',
+        body: 'Pop the stone back in and twist the halves together. A built-in divider keeps the stone and the charcoal apart.',
       },
       {
         id: 'place' as const,
         title: 'Drop it in or hang it',
         body: 'Shoes, bags, lockers, wardrobes, or hang it by its loop. It’s designed for airflow: air comes in the side holes, past the charcoal and your scented stone, and out the top.',
       },
+      {
+        id: 'refresh' as const,
+        title: 'Fading? Spray again',
+        body: 'When the scent starts to fade, give the stone a fresh spritz and it’s back to full strength. Same scent or a new one: it’s up to you.',
+      },
     ],
+    loopNote: 'Then back to step 1. One ball, refreshed as often as you like.',
     diagramCaption: 'Illustrative diagram',
     video: {
       src: null as string | null, // TODO(content): e.g. a 6–10s muted MP4 in /public, 'spray-close.mp4'
@@ -63,32 +71,32 @@ export const copy = {
     eyebrow: 'Why it’s different',
     title: 'Keep the ball. Change the scent whenever.',
     usps: [
-      { title: 'Reusable', body: 'Refresh the stone whenever the scent fades. No more tossing sachets in the bin.' },
+      { title: 'Refreshable', body: 'When the scent fades, a quick spritz brings it right back. One ball, again and again, and no more sachets in the bin.' },
       {
-        title: 'Charcoal + your scent',
-        body: 'Activated charcoal helps absorb odour, while the lava stone carries the fragrance you already like.',
+        title: 'Activated carbon + signature scent',
+        body: 'Activated charcoal helps absorb odour, while natural lava stone carries the fragrance you already love.',
       },
-      { title: 'Make it yours', body: 'Five characters, five colours and one ultra rare surprise. Pick one for your mood, your bag or your friend.' },
+      { title: 'A surprise in every box', body: 'Every Wello comes in a blind box. Five characters to collect, doubles to swap with friends, and an ultra rare to hunt for.' },
     ],
     tableCaption: 'How it compares',
     columns: ['Disposable sachets', 'Room sprays'],
     rows: [
-      { label: 'Use your own fragrance', values: [true, false, false] },
-      { label: 'Reusable shell', values: [true, false, false] },
-      { label: 'Replaceable parts', values: [true, false, false] },
-      { label: 'Fits in shoes and bags', values: [true, true, false] },
+      { label: 'Your signature scent', values: [true, false, false] },
+      { label: 'Built to be reused', values: [true, false, false] },
+      { label: 'Refillable charcoal and stone', values: [true, false, false] },
+      { label: 'Pocket-sized for shoes and bags', values: [true, true, false] },
       { label: 'Charcoal to help absorb odour', values: [true, 'Some', false] },
     ] as { label: string; values: (boolean | string)[] }[],
   },
   crew: {
     eyebrow: 'Meet the crew',
-    title: 'Collect all five. Give one to a friend.',
-    body: 'Each ball has its own colour and its own face. All five are in production now, and there’s one ultra rare ball we’re keeping quiet about.',
-    pouch: 'Getting one for someone? The 3-pack comes in a fabric pouch, ready to gift.',
+    title: 'Which one will you get?',
+    body: 'Every Wello comes in a blind box with one of five characters inside, picked at random. Collect them all, swap your doubles, and if you’re lucky, find the ultra rare one.',
+    pouch: 'Getting one for someone? A blind box makes the gift a surprise for both of you.',
     pickerLabel: 'Choose a design',
     whoLabel: 'Who it’s for',
     comingSoon: 'Coming soon',
-    orderCta: 'Reserve',
+    orderCta: 'Reserve a blind box',
   },
   useCases: {
     eyebrow: 'Where it goes',
@@ -104,10 +112,10 @@ export const copy = {
     ] as { id: string; slot: string; designId: DesignId; label: string; body: string; photo?: string }[],
   },
   madeBetter: {
-    eyebrow: 'Made a little better',
+    eyebrow: 'Made to last',
     facts: [
-      { title: 'Natural lava stone', body: () => 'The scent carrier is a piece of natural volcanic lava stone.' },
-      { title: 'Replace parts, keep the ball', body: () => 'Swap the charcoal or the stone instead of replacing the whole ball.' },
+      { title: 'Natural volcanic stone', body: () => 'Every ball carries a piece of natural lava stone, porous enough to soak up your fragrance.' },
+      { title: 'Refillable by design', body: () => 'Fresh charcoal and stone slot right in, so the ball you love keeps going.' },
     ],
     stillWorkingOn: null as string | null, // e.g. 'Plastic-free packaging for refills.'
   },
@@ -123,8 +131,10 @@ export const copy = {
   faq: { eyebrow: 'FAQ', title: 'Questions, answered.' },
   order: {
     eyebrow: 'Order',
-    title: 'Reserve yours',
-    body: 'We’re starting small, with friends and family. Build your order, send it on WhatsApp, and we’ll sort out pickup with you.',
+    title: 'Reserve a blind box',
+    body: 'Be first in line for our first batch. Each box holds one of five characters, picked at random. Choose how many you’d like, send your order on WhatsApp, and we’ll arrange pickup with you.',
+    boxesLabel: 'Boxes',
+    couldBe: 'Could be any of these, or the ultra rare one:',
     nameLabel: 'Your name',
     noteLabel: 'Pickup note',
     notePlaceholder: 'e.g. Weekday evenings near Bishan MRT',
@@ -145,7 +155,7 @@ export const copy = {
     comingSoonNote: (names: string[]) => (names.length ? `${names.join(', ').replace(/, ([^,]*)$/, ' and $1')} ${names.length === 1 ? 'is' : 'are'} coming soon.` : ''),
     optional: '(optional)',
     errors: {
-      empty: 'Add at least one ball to your order.',
+      empty: 'Add at least one blind box to your order.',
       name: 'Add your name so we know who it’s for.',
     },
     copyFailed: 'Couldn’t copy. Select the text below instead.',
@@ -161,7 +171,7 @@ export const copy = {
     madeIn: 'Designed in Singapore',
   },
   header: { menu: 'Menu', mainNav: 'Main' },
-  stickyCta: 'Reserve yours',
+  stickyCta: 'Reserve a blind box',
   privacy: {
     back: '← Back to site',
     title: 'Privacy',

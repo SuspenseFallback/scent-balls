@@ -11,7 +11,6 @@ export function Crew() {
   const [id, setId] = useState<string>(defaultId);
   const groupRef = useRef<HTMLDivElement>(null);
   const cur = getDesign(id) ?? designs[0];
-  const ready = cur.status === 'ready';
 
   // Restore a shared link like /#design=move (client only, so the prerendered HTML matches).
   useEffect(() => {
@@ -109,13 +108,11 @@ export function Crew() {
               <dt>{copy.crew.whoLabel}</dt>
               <dd>{cur.whoItsFor}</dd>
             </dl>
-            {ready && (
-              <div>
-                <a href="#order" className="btn btn--primary">
-                  {copy.crew.orderCta} {cur.name}
-                </a>
-              </div>
-            )}
+            <div>
+              <a href="#order" className="btn btn--primary">
+                {copy.crew.orderCta}
+              </a>
+            </div>
             <p className="crew__pouch">{copy.crew.pouch}</p>
           </div>
         </div>

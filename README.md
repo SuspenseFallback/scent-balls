@@ -21,7 +21,7 @@ Everything you'd normally change lives in `src/content/`:
 | --- | --- |
 | `site.ts` | Brand name, tagline, description, URL, contact email, WhatsApp number, socials, order mode, payment note, pickup info, and the feature flags below |
 | `designs.ts` | The five characters and the ultra rare teaser: name, theme, colour, face description, tagline, who it's for, `status`, `photo` |
-| `products.ts` | What can be ordered: single ball, 3-pack pouch, (commented-out) refills, prices, optional `checkoutUrl` |
+| `products.ts` | What can be ordered: the blind box (live), plus commented-out pick-your-character, 3-pack pouch and refill options; prices, optional `checkoutUrl` |
 | `faq.ts` | FAQ questions and answers |
 | `copy.ts` | All other page text: hero, sections, comparison table, order form labels, privacy page, safety lines, reviews |
 | `theme.ts` | Logo colour order and which section gets which accent colour |
@@ -32,6 +32,12 @@ Every placeholder is marked `TODO(content)`. Run `npm run check:content` to see 
 ### Making a design orderable
 
 In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. It then gets an order button in "Meet the crew", a quantity row in the order form, and appears in the 3-pack design pickers. While a design is coming soon it shows a "Coming soon" chip and can't be ordered. The ultra rare entry (`status: 'ultra-rare'`) is a teaser: it appears in the crew with a hidden silhouette and can never be ordered. When it's ready to reveal, give it a real name, details and icon, and set its status.
+
+### Blind boxes
+
+Wello is sold in blind boxes: customers choose how many boxes, not which character. The only live product is `blind-box` in `products.ts`; its `designIds` are the characters a box might contain, shown as "Could be any of these" in the order form. The WhatsApp message lists "N × Blind box".
+
+The order form still supports picking characters (`type: 'ball'`) and the 3-pack pouch (`type: 'pouch-set'`). They're commented out in `products.ts`, so you can bring either back alongside blind boxes later. With a character product live, a design's `status` decides whether it's orderable (`'ready'`) or shows "Coming soon".
 
 ### Character icons
 
@@ -173,7 +179,7 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 ## Copy rules (keep these when editing)
 
 - Say "helps absorb" and "designed for airflow". Never "eliminates", "kills germs", "non-toxic", "biodegradable", "compostable", an unqualified "eco-friendly", or "pushes out air".
-- Sustainability is a supporting message, facts only: natural volcanic lava stone, replaceable parts. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
+- Sustainability is a supporting message, facts only: natural volcanic lava stone, refillable charcoal and stone. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
 - No durations ("lasts a week") or comparisons ("better than…") until `testResult` is set.
 - Never invent reviews or names. "Made/Designed in Singapore" only with the flag on.
 - Keep the safety lines in the FAQ and footer (`safetyLines` in `copy.ts`).
@@ -187,7 +193,8 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 - [ ] Final hero headline chosen (`copy.hero.headline`)
 - [ ] `siteUrl`, `contactEmail`, `whatsappNumber` (with 65 country code), Instagram and TikTok URLs set
 - [ ] WhatsApp order tested on a real phone, and the message arrives on the right number
-- [ ] Prices, pouch details, payment note and pickup info confirmed (`products.ts`, `site.ts`)
+- [ ] Blind box price, payment note and pickup info confirmed (`products.ts`, `site.ts`)
+- [ ] Ultra rare: confirmed it can come in a blind box (the site says so), and how rare it is
 - [ ] Design colours matched to the real prints; taglines and "who it's for" final (`designs.ts`)
 - [ ] Higher-resolution icons added (the current ones are only 200–245px wide)
 - [ ] Ultra rare ball: name, icon and how people can get one

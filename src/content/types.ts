@@ -19,7 +19,8 @@ export interface Design {
   photo?: string;
 }
 
-export type ProductType = 'ball' | 'pouch-set' | 'refill';
+/** blind-box = one random character per box; ball = a chosen character; pouch-set = chosen characters in a pouch. */
+export type ProductType = 'blind-box' | 'ball' | 'pouch-set' | 'refill';
 
 export interface Product {
   id: string;
@@ -27,7 +28,7 @@ export interface Product {
   name: string;
   description: string;
   priceSGD: number;
-  /** Designs this product can be ordered in. */
+  /** Designs this product can be ordered in (for a blind box: the characters it might contain). */
   designIds: DesignId[];
   /** Balls per pack (1 for a single ball, 3 for the pouch set). */
   itemsPerPack: number;
