@@ -32,7 +32,7 @@ export interface Product {
   designIds: DesignId[];
   /** Balls per pack (1 for a single ball, 3 for the pouch set). */
   itemsPerPack: number;
-  /** Paste a Stripe Payment Link (or similar) to show "Buy now" instead of the WhatsApp builder. */
+  /** Paste a Stripe Payment Link (or similar) to show "Buy now" instead of the order form. */
   checkoutUrl?: string;
 }
 
@@ -71,11 +71,12 @@ export interface SiteConfig {
   /** Path inside /public, e.g. "og-image.png" (1200×630 PNG/JPG). null = no image tag. */
   ogImage: string | null;
   contactEmail: string;
-  /** International format, digits only, e.g. "6591234567". */
-  whatsappNumber: string;
   instagramUrl: string;
   tiktokUrl: string;
-  orderMode: 'whatsapp' | 'checkout-links';
+  /** 'email': the order form emails orders via orderEndpoint. 'checkout-links': only "Buy now" links. */
+  orderMode: 'email' | 'checkout-links';
+  /** Where the order form sends orders (the Vercel function in api/order.ts). */
+  orderEndpoint: string;
   paymentNote: string;
   pickupInfo: string;
   shellMaterial: string;

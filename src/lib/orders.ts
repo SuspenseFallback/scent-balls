@@ -4,9 +4,10 @@ import { getDesign } from '../content/designs';
 import { products } from '../content/products';
 
 /**
- * ALL order submission logic lives here. To add payments later, either paste
- * checkoutUrl values into products.ts, or replace submitOrder() with a
- * Shopify / Stripe Checkout integration. Components only call these exports.
+ * ALL order submission logic lives here. Orders are POSTed to site.orderEndpoint
+ * (the Vercel function in api/order.ts), which emails them to you. To add payments later,
+ * paste checkoutUrl values into products.ts, or replace submitOrder() with a Shopify /
+ * Stripe Checkout integration. Components only call these exports.
  */
 
 export interface OrderLine {
@@ -18,6 +19,7 @@ export interface OrderLine {
 
 export interface OrderDetails {
   name: string;
+  email: string;
   pickupNote: string;
 }
 
@@ -31,9 +33,9 @@ export const subtotal = (lines: OrderLine[]) => lines.reduce((sum, l) => sum + l
 
 const designNames = (ids: string[]) => ids.map((id) => getDesign(id)?.name ?? id).join(', ');
 
-/** Products ordered through the WhatsApp builder (none in 'checkout-links' mode). */
+/** Products ordered through the order form (none in 'checkout-links' mode). */
 export const builderProducts = () =>
-  site.orderMode === 'whatsapp' ? products.filter((p) => !hasCheckout(p)) : [];
+  site.orderMode === 'email' ? products.filter((p) => !hasCheckout(p)) : [];
 
 /** Products with a checkoutUrl get a "Buy now" link instead of the builder. */
 export const checkoutProducts = () => products.filter(hasCheckout);
@@ -58,6 +60,7 @@ export function buildOrderText(lines: OrderLine[], details: OrderDetails): strin
     '',
     `Subtotal: ${formatPrice(subtotal(lines))}`,
     `Name: ${details.name.trim()}`,
+    `Email: ${details.email.trim()}`,
     details.pickupNote.trim() ? `Pickup: ${details.pickupNote.trim()}` : null,
     '',
     site.paymentNote,
@@ -66,41 +69,40 @@ export function buildOrderText(lines: OrderLine[], details: OrderDetails): strin
     .join('\n');
 }
 
-export const whatsappUrl = (text: string) =>
-  `https://wa.me/${site.whatsappNumber.replace(/\D/g, '')}?text=${encodeURIComponent(text)}`;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-export type ValidationError = 'empty' | 'name' | null;
+export type ValidationError = 'empty' | 'name' | 'email' | null;
 
 export function validate(lines: OrderLine[], details: OrderDetails): ValidationError {
   if (!lines.some((l) => l.qty > 0)) return 'empty';
   if (!details.name.trim()) return 'name';
+  if (!EMAIL.test(details.email.trim())) return 'email';
   return null;
 }
 
-/** Opens WhatsApp with the order prefilled. Nothing is stored or sent elsewhere. */
-export function submitOrder(lines: OrderLine[], details: OrderDetails): void {
-  const url = whatsappUrl(buildOrderText(lines, details));
-  // ('noopener' in the features string makes window.open return null, so detach the opener manually.)
-  const win = window.open(url, '_blank');
-  if (win) win.opener = null;
-  // Pop-up blocked (some in-app browsers): go there directly instead.
-  else window.location.href = url;
-}
-
-export async function copyOrderText(text: string): Promise<boolean> {
+/**
+ * Sends the order to site.orderEndpoint, which emails it to you.
+ * `website` is the hidden anti-spam field; real visitors leave it empty.
+ */
+export async function submitOrder(lines: OrderLine[], details: OrderDetails, website = ''): Promise<'sent' | 'failed'> {
   try {
-    await navigator.clipboard.writeText(text);
-    return true;
+    const res = await fetch(site.orderEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: details.name.trim(),
+        email: details.email.trim(),
+        note: details.pickupNote.trim(),
+        website,
+        items: lines.filter((l) => l.qty > 0).map((l) => ({ productId: l.product.id, qty: l.qty, designIds: l.designIds })),
+      }),
+    });
+    return res.ok ? 'sent' : 'failed';
   } catch {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    const ok = document.execCommand('copy');
-    ta.remove();
-    return ok;
+    return 'failed';
   }
 }
+
+/** Fallback if sending fails: opens the visitor's own email app with the order filled in. */
+export const mailtoUrl = (text: string) =>
+  `mailto:${site.contactEmail}?subject=${encodeURIComponent(`Order for ${site.brandName}`)}&body=${encodeURIComponent(text)}`;

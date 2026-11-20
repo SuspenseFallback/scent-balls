@@ -16,7 +16,7 @@ export const faq: FaqItem[] = [
     q: 'How long does it last?',
     a: [
       'It depends on your fragrance, how much you spray and where you keep the ball.',
-      'Whenever you notice the scent fading, give the stone a fresh spritz and it’s good to go again.',
+      'Whenever you notice the scent fading, give the stone a fresh spritz and it’s good to go again. Every few months, recharge the charcoal in the sun, and the whole ball keeps going.',
     ],
   },
   {
@@ -29,8 +29,11 @@ export const faq: FaqItem[] = [
   },
   {
     id: 'replace',
-    q: 'Can I refill the charcoal and stone?',
-    a: ['Yes. Both are refillable, so the ball you love keeps going. Refill packs are on the way; until then, just message us.'],
+    q: 'Will I ever need to replace the charcoal or stone?',
+    a: [
+      'No. Wello is 100% reusable. Respray the lava stone whenever the scent fades.',
+      'For the charcoal: every few months, lift out the divider, take out the charcoal sachet and leave it in the sun to dry. That recharges it. Only the sachet goes in the sun, so keep the ball itself in the shade.',
+    ],
   },
   {
     id: 'safe',
@@ -42,8 +45,8 @@ export const faq: FaqItem[] = [
     id: 'inside',
     q: 'What’s inside?',
     a: [
-      'One half holds activated charcoal, which helps absorb odour. The other half holds a piece of porous lava stone that carries your scent.',
-      'A divider with small holes sits between them so they don’t touch.',
+      'One half holds a sachet of activated charcoal, which helps absorb odour. The other half holds a piece of porous lava stone that carries your scent.',
+      'A removable divider with small holes sits between them so they don’t touch. Lift it out when it’s time to recharge the charcoal.',
     ],
   },
   {
@@ -62,7 +65,7 @@ export const faq: FaqItem[] = [
     id: 'ordering',
     q: 'How do ordering and pickup work?',
     a: [
-      'Build your order below and send it to us on WhatsApp. Nothing is charged on this site.',
+      'Choose how many boxes you’d like below and send your order. It comes straight to us by email, and we’ll reply to arrange pickup. Nothing is charged on this site.',
       `${site.pickupInfo} ${site.paymentNote}`,
     ],
   },

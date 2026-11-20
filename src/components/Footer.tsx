@@ -7,7 +7,6 @@ import { WelloBall } from './WelloBall';
 
 export function Footer({ home = '#top', privacy = 'privacy.html' }: { home?: string; privacy?: string }) {
   const f = copy.footer;
-  const wa = `https://wa.me/${site.whatsappNumber.replace(/\D/g, '')}`;
   return (
     <footer className="footer">
       <StripeBand variant="thin" className="footer__stripe" />
@@ -26,22 +25,19 @@ export function Footer({ home = '#top', privacy = 'privacy.html' }: { home?: str
           <CrewRow />
           <ul className="footer__links">
             <li>
-              <a href={site.instagramUrl} rel="noopener noreferrer">
+              <a target="_blank" href={site.instagramUrl} rel="noopener noreferrer">
                 Instagram
               </a>
             </li>
             <li>
-              <a href={site.tiktokUrl} rel="noopener noreferrer">
+              <a target="_blank" href={site.tiktokUrl} rel="noopener noreferrer">
                 TikTok
               </a>
             </li>
             <li>
-              <a href={wa} rel="noopener noreferrer">
-                WhatsApp
+              <a target="_blank" href={`mailto:${site.contactEmail}`} rel="noopener noreferrer">
+                {site.contactEmail}
               </a>
-            </li>
-            <li>
-              <a href={`mailto:${site.contactEmail}`}>{site.contactEmail}</a>
             </li>
           </ul>
         </div>

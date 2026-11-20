@@ -56,6 +56,16 @@ export function HowItWorks() {
             </svg>
             <span>{copy.how.loopNote}</span>
           </Reveal>
+          <Reveal className="care-tip" index={copy.how.steps.length + 2}>
+            <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+              <circle cx="12" cy="12" r="4.5" />
+              <path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8" />
+            </svg>
+            <div>
+              <h3>{copy.how.care.title}</h3>
+              <p>{copy.how.care.body}</p>
+            </div>
+          </Reveal>
         </div>
         <div className="how__visual">
           <AirflowDiagram step={step} />

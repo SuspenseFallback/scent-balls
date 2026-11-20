@@ -515,6 +515,26 @@ a:hover { color: var(--brand-hover); }
 .blindbox__odds { display: grid; gap: var(--s-2); padding: var(--s-4); border-radius: 16px; background: var(--bg-soft); }
 .blindbox__odds .crew-row img, .blindbox__odds .crew-row svg { width: 44px; height: 44px; }
 
+/* Order form: email states */
+.field__hint { font-size: 0.8125rem; color: var(--ink-soft); }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.builder { position: relative; }
+.builder__done { display: grid; gap: var(--s-3); border-color: var(--accent); }
+.builder__done h3 { font-family: var(--font-display); font-weight: 400; text-transform: uppercase; letter-spacing: var(--display-tracking); font-size: 2rem; }
+.builder__done:focus, .builder__failed:focus { outline: none; }
+.builder__failed { display: grid; gap: var(--s-3); justify-items: start; padding: var(--s-4); border-radius: 16px; background: var(--c-coral-tint); }
+.builder__failed .field { width: 100%; }
+.btn[disabled] { cursor: progress; }
+
+/* How it works: charcoal care tip */
+.care-tip {
+  display: grid; grid-template-columns: auto 1fr; gap: var(--s-4); align-items: start;
+  padding: var(--s-5); border-radius: var(--radius-card); background: var(--surface); border: 1px solid var(--line);
+}
+.care-tip svg { color: var(--accent-deep); margin-top: 2px; }
+.care-tip h3 { font-size: 1.0625rem; margin-bottom: 4px; }
+.care-tip p { color: var(--ink-soft); }
+
 /* A little row of the whole crew */
 .crew-row { display: flex; align-items: flex-end; gap: var(--s-2); }
 .crew-row img, .crew-row svg { width: 40px; height: 40px; object-fit: contain; flex: none; }

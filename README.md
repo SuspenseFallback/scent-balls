@@ -19,7 +19,7 @@ Everything you'd normally change lives in `src/content/`:
 
 | File | What's in it |
 | --- | --- |
-| `site.ts` | Brand name, tagline, description, URL, contact email, WhatsApp number, socials, order mode, payment note, pickup info, and the feature flags below |
+| `site.ts` | Brand name, tagline, description, URL, contact email, socials, order mode and endpoint, payment note, pickup info, and the feature flags below |
 | `designs.ts` | The five characters and the ultra rare teaser: name, theme, colour, face description, tagline, who it's for, `status`, `photo` |
 | `products.ts` | What can be ordered: the blind box (live), plus commented-out pick-your-character, 3-pack pouch and refill options; prices, optional `checkoutUrl` |
 | `faq.ts` | FAQ questions and answers |
@@ -35,7 +35,7 @@ In `designs.ts`, change a design's `status` from `'coming-soon'` to `'ready'`. I
 
 ### Blind boxes
 
-Wello is sold in blind boxes: customers choose how many boxes, not which character. The only live product is `blind-box` in `products.ts`; its `designIds` are the characters a box might contain, shown as "Could be any of these" in the order form. The WhatsApp message lists "N × Blind box".
+Wello is sold in blind boxes: customers choose how many boxes, not which character. The only live product is `blind-box` in `products.ts`; its `designIds` are the characters a box might contain, shown as "Could be any of these" in the order form. The order email lists "N × Blind box".
 
 The order form still supports picking characters (`type: 'ball'`) and the 3-pack pouch (`type: 'pouch-set'`). They're commented out in `products.ts`, so you can bring either back alongside blind boxes later. With a character product live, a design's `status` decides whether it's orderable (`'ready'`) or shows "Coming soon".
 
@@ -81,7 +81,7 @@ Sections rotate through the logo colours for their eyebrow, icons, step numbers,
 - `src/components/Logo.tsx` is the **one place the logo is drawn**. Variants: `full` (coloured, header), `mark` (ball only), `ink` (one colour, footer). It's built from live text: "WELL" in Anton, plus `<WelloBall />` as the O, sized in em so it scales with `font-size`. The proportions (ball 0.91 × cap height, raised 0.22 × cap height, tucked over the last L) are in the `.wordmark` rules in `global.css`.
 - When the final vector logo arrives, replace the inside of `Logo.tsx` (for example with an inline `<svg>` or an `<img>` of the file). Nothing else needs to change. Keep `role="img"` and `aria-label={site.brandName}` on the outer element.
 - The ball's shapes live in `src/lib/welloBall.ts` and are shared by `<WelloBall />`, the favicon and the OG image, so editing them updates all three. `<WelloBall animate />` swings gently from the loop (static with reduced motion).
-- **Name:** `brandName` in `src/content/site.ts` flows into the page text, comparison table, WhatsApp message, titles, Open Graph and JSON-LD. The wordmark letters themselves are in `Logo.tsx`.
+- **Name:** `brandName` in `src/content/site.ts` flows into the page text, comparison table, order emails, titles, Open Graph and JSON-LD. The wordmark letters themselves are in `Logo.tsx`.
 
 ### Favicon and OG image
 
@@ -135,12 +135,24 @@ All of these stay hidden until you turn them on. Never publish made-up results o
 
 ## Ordering and payments
 
-v1 has no payments on the site. People build an order, then "Send order on WhatsApp" opens `wa.me/<whatsappNumber>` with the order pre-filled; "Copy order text" is the fallback. The site stores nothing.
+v1 has no payments on the site. People choose how many blind boxes they want, add their name, email and a pickup note, and tap **Send order**. The order is emailed to you automatically; the customer's address is set as reply-to, so you just hit reply to arrange pickup. The site itself stores nothing.
 
-All order logic is in **`src/lib/orders.ts`**.
+How it works: the form POSTs to `/api/order` (`site.orderEndpoint`). That's a Vercel serverless function in `api/order.ts`. It re-checks the order against `products.ts` so prices can't be tampered with, ignores bots that fill a hidden field, and sends the email through [Resend](https://resend.com) using a plain HTTPS call (no extra packages).
 
-- **Payment links:** paste a Stripe Payment Link (or similar) into a product's `checkoutUrl` in `products.ts`. That product then shows a "Buy now" button instead of a row in the WhatsApp builder.
-- **Links only:** set `orderMode: 'checkout-links'` in `site.ts` to hide the WhatsApp builder completely and show only products that have a `checkoutUrl`.
+**Setting it up (once):**
+
+1. Create a free Resend account and an API key.
+2. In Vercel, open the project, go to **Settings → Environment Variables**, and add:
+   - `ORDER_EMAIL_TO`: the address orders go to (comma-separate several).
+   - `RESEND_API_KEY`: the key from step 1.
+   - `ORDER_EMAIL_FROM` (optional): for example `Wello orders <orders@yourdomain.com>`. Verify that domain in Resend first. Without it, Resend's test sender is used, and that can only deliver to the email address of your own Resend account.
+3. Redeploy, then place a test order on the live site.
+
+If sending fails (not configured yet, Resend down, or a host without the function), the form says so and offers **Email your order**, which opens the visitor's own email app addressed to `site.contactEmail` with the order filled in. `/api/order` only exists on Vercel: `npm run preview` (and GitHub Pages or Netlify) will always show that fallback. To test sending locally, run `npx vercel dev` with the same variables in `.env.local`.
+
+All order logic is in **`src/lib/orders.ts`** (plus the function in `api/order.ts`).
+
+- **Links only:** set `orderMode: 'checkout-links'` in `site.ts` to hide the order form completely and show only products that have a `checkoutUrl`.
 - **Full checkout later (Shopify, Stripe Checkout):** replace `submitOrder()` in `orders.ts`. Components only call the functions exported from that file.
 - **Refills:** uncomment the refill entries in `products.ts`; they appear in the order form automatically.
 
@@ -179,7 +191,7 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 ## Copy rules (keep these when editing)
 
 - Say "helps absorb" and "designed for airflow". Never "eliminates", "kills germs", "non-toxic", "biodegradable", "compostable", an unqualified "eco-friendly", or "pushes out air".
-- Sustainability is a supporting message, facts only: natural volcanic lava stone, refillable charcoal and stone. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
+- Reusability is a headline message, sustainability supports it. Facts only: Wello is 100% reusable (respray the stone; recharge the charcoal sachet in the sun every few months; no disposable parts), with natural volcanic lava stone. Don't add unqualified "eco-friendly", "sustainable" or waste comparisons without evidence. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
 - No durations ("lasts a week") or comparisons ("better than…") until `testResult` is set.
 - Never invent reviews or names. "Made/Designed in Singapore" only with the flag on.
 - Keep the safety lines in the FAQ and footer (`safetyLines` in `copy.ts`).
@@ -191,8 +203,8 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 - [ ] Tagline and description final (`site.ts`)
 - [ ] Final vector logo dropped into `Logo.tsx` (if it differs from the current build); palette confirmed and `npm run check:contrast` passes
 - [ ] Final hero headline chosen (`copy.hero.headline`)
-- [ ] `siteUrl`, `contactEmail`, `whatsappNumber` (with 65 country code), Instagram and TikTok URLs set
-- [ ] WhatsApp order tested on a real phone, and the message arrives on the right number
+- [ ] `siteUrl`, `contactEmail`, Instagram and TikTok URLs set
+- [ ] Vercel env vars set (`ORDER_EMAIL_TO`, `RESEND_API_KEY`, ideally `ORDER_EMAIL_FROM` with a verified domain), and a test order received on a real phone
 - [ ] Blind box price, payment note and pickup info confirmed (`products.ts`, `site.ts`)
 - [ ] Ultra rare: confirmed it can come in a blind box (the site says so), and how rare it is
 - [ ] Design colours matched to the real prints; taglines and "who it's for" final (`designs.ts`)

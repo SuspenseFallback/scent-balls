@@ -8,10 +8,10 @@ export const designs: Design[] = [
     id: 'snoozie',
     name: 'Snoozie',
     theme: 'Sleep',
-    color: '#76569E', // TODO(content): match the real print
+    color: '#76569E',
     emboss: 'closed eyes, a yawning mouth and a trail of zzz',
-    tagline: 'Always a bit sleepy. Somehow always fresh.', // TODO(content)
-    whoItsFor: 'Night owls, morning snoozers and anyone whose shoes live by the door.', // TODO(content)
+    tagline: 'Always a bit sleepy. Somehow always fresh.',
+    whoItsFor: 'Night owls, morning snoozers and anyone whose shoes live by the door.',
     status: 'ready',
     // photo: 'snoozie.jpg', // TODO(content): add a real photo of the prototype
   },
@@ -19,10 +19,10 @@ export const designs: Design[] = [
     id: 'clem',
     name: 'Clem',
     theme: 'Nutrition',
-    color: '#EA8533', // TODO(content): match the real print
+    color: '#EA8533', 
     emboss: 'big round eyes and its tongue poking out',
-    tagline: 'Thinks about snacks more than you do.', // TODO(content)
-    whoItsFor: 'Foodies, meal-preppers and anyone with a lunchbox in their bag.', // TODO(content)
+    tagline: 'Thinks about snacks more than you do.',
+    whoItsFor: 'Foodies, meal-preppers and anyone with a lunchbox in their bag.', 
     status: 'ready',
   },
   {

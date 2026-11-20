@@ -34,7 +34,8 @@ export const products: Product[] = [
   //   designIds: allDesigns,
   //   itemsPerPack: 3,
   // },
-  // Refill packs — uncomment when ready.
+  // Refill packs. Not needed for normal use (the stone is resprayed and the charcoal is
+  // recharged in the sun); kept in case you ever sell spares. Uncomment to sell.
   // {
   //   id: 'refill-charcoal',
   //   type: 'refill',

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type FormEvent } from 'react';
+import { useRef, useState, type FormEvent } from 'react';
 import { copy } from '../content/copy';
 import { site } from '../content/site';
 import type { Product } from '../content/types';
@@ -7,8 +7,8 @@ import {
   builderProducts,
   checkoutProducts,
   comingSoonDesigns,
-  copyOrderText,
   formatPrice,
+  mailtoUrl,
   orderableDesigns,
   submitOrder,
   subtotal,
@@ -50,9 +50,10 @@ export function OrderBuilder() {
   const [name, setName] = useState('');
   const [note, setNote] = useState('');
   const [error, setError] = useState<ValidationError>(null);
-  const [copyState, setCopyState] = useState<'idle' | 'copied' | 'failed'>('idle');
-  const timer = useRef<number>();
-  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState(''); // hidden anti-spam field
+  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'failed'>('idle');
+  const resultRef = useRef<HTMLDivElement>(null);
 
   const lines: OrderLine[] = [];
   for (const p of built) {
@@ -69,7 +70,7 @@ export function OrderBuilder() {
     }
   }
 
-  const details = { name, pickupNote: note };
+  const details = { name, email, pickupNote: note };
   const total = subtotal(lines);
 
   const stepQty = (k: string, delta: number) => {
@@ -99,20 +100,24 @@ export function OrderBuilder() {
     const err = validate(lines, details);
     setError(err);
     if (err === 'name') document.getElementById('order-name')?.focus();
+    if (err === 'email') document.getElementById('order-email')?.focus();
     return !err;
   };
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (check()) submitOrder(lines, details);
+    if (status === 'sending' || !check()) return;
+    setStatus('sending');
+    const result = await submitOrder(lines, details, website);
+    setStatus(result);
+    requestAnimationFrame(() => resultRef.current?.focus());
   };
 
-  const onCopy = async () => {
-    if (!check()) return;
-    const ok = await copyOrderText(buildOrderText(lines, details));
-    setCopyState(ok ? 'copied' : 'failed');
-    window.clearTimeout(timer.current);
-    if (ok) timer.current = window.setTimeout(() => setCopyState('idle'), 2500);
+  const reset = () => {
+    setQty({});
+    setPacks({});
+    setNote('');
+    setStatus('idle');
   };
 
   return (
@@ -136,8 +141,20 @@ export function OrderBuilder() {
         </div>
       )}
 
-      {built.length > 0 && (
-        <form className="card builder" onSubmit={onSubmit} noValidate aria-label="Order builder">
+      {built.length > 0 && status === 'sent' && (
+        <div className="card builder builder__done" ref={resultRef} tabIndex={-1} role="status">
+          <h3>{o.sentTitle}</h3>
+          <p>{o.sentBody(email.trim())}</p>
+          <div>
+            <button type="button" className="btn btn--secondary" onClick={reset}>
+              {o.another}
+            </button>
+          </div>
+        </div>
+      )}
+
+      {built.length > 0 && status !== 'sent' && (
+        <form className="card builder" onSubmit={onSubmit} noValidate aria-label="Order builder" aria-busy={status === 'sending'}>
           {built.map((p) => {
             const ready = orderableDesigns(p);
             const soon = comingSoonDesigns(p);
@@ -262,6 +279,32 @@ export function OrderBuilder() {
               />
             </div>
             <div className="field">
+              <label htmlFor="order-email">{o.emailLabel}</label>
+              <input
+                id="order-email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                value={email}
+                aria-invalid={error === 'email' || undefined}
+                aria-describedby={error === 'email' ? 'order-error order-email-hint' : 'order-email-hint'}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setError(null);
+                }}
+              />
+              <span className="field__hint" id="order-email-hint">
+                {o.emailHint}
+              </span>
+            </div>
+            {/* Anti-spam: hidden from people, but bots tend to fill it in. */}
+            <div className="hp" aria-hidden="true">
+              <label>
+                Website
+                <input type="text" name="website" tabIndex={-1} autoComplete="off" value={website} onChange={(e) => setWebsite(e.target.value)} />
+              </label>
+            </div>
+            <div className="field">
               <label htmlFor="order-note">
                 {o.noteLabel} <span className="field__opt">{o.optional}</span>
               </label>
@@ -279,23 +322,27 @@ export function OrderBuilder() {
               {error ? o.errors[error] : ''}
             </div>
             <div className="summary__actions">
-              <button type="submit" className="btn btn--primary">
-                {o.send}
-              </button>
-              <button type="button" className="btn btn--secondary" onClick={onCopy}>
-                {copyState === 'copied' ? o.copied : o.copy}
+              <button type="submit" className="btn btn--primary" disabled={status === 'sending'}>
+                {status === 'sending' ? o.sending : o.send}
               </button>
             </div>
-            <span className="sr-only" aria-live="polite">
-              {copyState === 'copied' ? o.copied : ''}
-            </span>
-            {copyState === 'failed' && (
-              <div className="field">
-                <label htmlFor="order-text">{o.copyFailed}</label>
-                <textarea id="order-text" readOnly value={buildOrderText(lines, details)} rows={8} onFocus={(e) => e.currentTarget.select()} />
+            {status === 'failed' && (
+              <div className="builder__failed" ref={resultRef} tabIndex={-1} role="alert">
+                <p>
+                  <strong>{o.failedTitle}</strong> {o.failedBody}
+                </p>
+                <a className="btn btn--secondary btn--small" href={mailtoUrl(buildOrderText(lines, details))}>
+                  {o.emailInstead}
+                </a>
+                <div className="field">
+                  <label htmlFor="order-text">{o.orderTextLabel}</label>
+                  <textarea id="order-text" readOnly value={buildOrderText(lines, details)} rows={8} onFocus={(e) => e.currentTarget.select()} />
+                </div>
               </div>
             )}
-            <p className="note note--xs">{o.storesNothing}</p>
+            <p className="note note--xs">
+              {o.storesNothing} <a href="privacy.html">Privacy</a>
+            </p>
           </div>
         </form>
       )}

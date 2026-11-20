@@ -4,7 +4,7 @@ export const safetyLines = [
   'Not a toy. Keep away from young children and pets.',
   "Don't spray fragrance onto skin, eyes or food with the ball.",
   'Spray away from flame and let the stone dry before closing.',
-  'Keep out of hot cars and direct sun.',
+  'Keep the ball out of hot cars and direct sun (only the charcoal sachet goes in the sun, to recharge).',
 ];
 
 export const copy = {
@@ -19,7 +19,7 @@ export const copy = {
     headlineOptions: ['Say Wello to freshness.', 'Say Wello to a fresher gym bag.', 'Meet the crew that keeps things fresh.'],
     headline: 'Say Wello to freshness.', // TODO(content): pick final headline (one of headlineOptions, or your own)
     subhead:
-      'A reusable scent ball with activated charcoal that helps absorb odour and a natural lava stone that diffuses your scent. Customise it with your own cologne or perfume, then simply drop it in your shoes, gym bag or locker!',
+      'A 100% reusable scent ball with activated charcoal that helps absorb odour and a natural lava stone that diffuses your scent. Customise it with your own cologne or perfume, then simply drop it in your shoes, gym bag or locker!',
     // Small line above the headline.
     badge: 'Blind box · 5 characters to collect',
     primaryCta: 'Reserve a blind box',
@@ -46,7 +46,7 @@ export const copy = {
       {
         id: 'close' as const,
         title: 'Close it up',
-        body: 'Pop the stone back in and twist the halves together. A built-in divider keeps the stone and the charcoal apart.',
+        body: 'Pop the stone back in and twist the halves together. A removable divider keeps the stone and the charcoal apart.',
       },
       {
         id: 'place' as const,
@@ -60,6 +60,10 @@ export const copy = {
       },
     ],
     loopNote: 'Then back to step 1. One ball, refreshed as often as you like.',
+    care: {
+      title: 'Every few months: recharge the charcoal',
+      body: 'The divider lifts out. Take out the charcoal sachet and leave it in the sun to dry, and it’s recharged and ready to go again. Just the sachet: keep the ball itself out of direct sun.',
+    },
     diagramCaption: 'Illustrative diagram',
     video: {
       src: null as string | null, // TODO(content): e.g. a 6–10s muted MP4 in /public, 'spray-close.mp4'
@@ -71,7 +75,7 @@ export const copy = {
     eyebrow: 'Why it’s different',
     title: 'Keep the ball. Change the scent whenever.',
     usps: [
-      { title: 'Refreshable', body: 'When the scent fades, a quick spritz brings it right back. One ball, again and again, and no more sachets in the bin.' },
+      { title: '100% reusable', body: 'Respray the stone when the scent fades, and recharge the charcoal in the sun every few months. No disposable parts, and no more sachets in the bin.' },
       {
         title: 'Activated carbon + signature scent',
         body: 'Activated charcoal helps absorb odour, while natural lava stone carries the fragrance you already love.',
@@ -82,8 +86,8 @@ export const copy = {
     columns: ['Disposable sachets', 'Room sprays'],
     rows: [
       { label: 'Your signature scent', values: [true, false, false] },
-      { label: 'Built to be reused', values: [true, false, false] },
-      { label: 'Refillable charcoal and stone', values: [true, false, false] },
+      { label: '100% reusable', values: [true, false, false] },
+      { label: 'Charcoal you recharge in the sun', values: [true, false, false] },
       { label: 'Pocket-sized for shoes and bags', values: [true, true, false] },
       { label: 'Charcoal to help absorb odour', values: [true, 'Some', false] },
     ] as { label: string; values: (boolean | string)[] }[],
@@ -114,8 +118,9 @@ export const copy = {
   madeBetter: {
     eyebrow: 'Made to last',
     facts: [
-      { title: 'Natural volcanic stone', body: () => 'Every ball carries a piece of natural lava stone, porous enough to soak up your fragrance.' },
-      { title: 'Refillable by design', body: () => 'Fresh charcoal and stone slot right in, so the ball you love keeps going.' },
+      { title: '100% reusable', body: () => 'The ball, the stone and the charcoal are all made to be used again and again. No disposable parts.' },
+      { title: 'Recharged by the sun', body: () => 'Every few months, set the charcoal sachet out in the sun to dry. That recharges it, so there’s nothing to buy again.' },
+      { title: 'Natural volcanic stone', body: () => 'Every ball carries a piece of natural lava stone, porous enough to soak up your fragrance spray after spray.' },
     ],
     stillWorkingOn: null as string | null, // e.g. 'Plastic-free packaging for refills.'
   },
@@ -132,19 +137,27 @@ export const copy = {
   order: {
     eyebrow: 'Order',
     title: 'Reserve a blind box',
-    body: 'Be first in line for our first batch. Each box holds one of five characters, picked at random. Choose how many you’d like, send your order on WhatsApp, and we’ll arrange pickup with you.',
+    body: 'Be first in line for our first batch. Each box holds one of five characters, picked at random. Choose how many you’d like, send your order, and we’ll email you to arrange pickup.',
     boxesLabel: 'Boxes',
     couldBe: 'Could be any of these, or the ultra rare one:',
     nameLabel: 'Your name',
+    emailLabel: 'Your email',
+    emailHint: 'We’ll reply here to arrange pickup.',
     noteLabel: 'Pickup note',
     notePlaceholder: 'e.g. Weekday evenings near Bishan MRT',
     subtotal: 'Subtotal',
-    send: 'Send order on WhatsApp',
-    copy: 'Copy order text',
-    copied: 'Copied',
+    send: 'Send order',
+    sending: 'Sending…',
+    sentTitle: 'Order sent!',
+    sentBody: (email: string) => `Thanks! We’ve got your order and will email you at ${email} to arrange pickup.`,
+    another: 'Place another order',
+    failedTitle: 'That didn’t send.',
+    failedBody: 'Something went wrong on our side. You can email your order to us instead:',
+    emailInstead: 'Email your order',
+    orderTextLabel: 'Your order',
     buyNow: 'Buy now',
     pouchDesignsLabel: 'Designs in each pouch',
-    storesNothing: 'This site doesn’t store your details. Your order is only sent when you tap send.',
+    storesNothing: 'We only use your details to arrange this order.',
     followUs: 'Follow the crew',
     pickupLabel: 'Pickup',
     paymentLabel: 'Payment',
@@ -157,8 +170,8 @@ export const copy = {
     errors: {
       empty: 'Add at least one blind box to your order.',
       name: 'Add your name so we know who it’s for.',
+      email: 'Add your email so we can get back to you.',
     },
-    copyFailed: 'Couldn’t copy. Select the text below instead.',
     checkoutTitle: 'Buy online',
   },
   footer: {
@@ -175,11 +188,11 @@ export const copy = {
   privacy: {
     back: '← Back to site',
     title: 'Privacy',
-    lead: 'Short version: nothing you type here is sent to us or saved, and we only measure visits in aggregate.',
+    lead: 'Short version: we only use your order details to arrange your order, and we only measure visits in aggregate.',
     sections: [
       {
         title: 'What this site stores',
-        body: 'No accounts and no tracking pixels. The order form runs in your browser, and nothing you type is sent to us or saved.',
+        body: 'No accounts, no cookies of our own and no tracking pixels. The site doesn’t keep anything you type: your order is only sent when you tap “Send order”.',
       },
       {
         title: 'Visit statistics',
@@ -187,11 +200,11 @@ export const copy = {
       },
       {
         title: 'How orders work',
-        body: 'When you tap “Send order on WhatsApp”, WhatsApp opens with your order text filled in. Your name and pickup note only reach us if you choose to send that message. From then on, WhatsApp’s own privacy policy applies to the chat.',
+        body: 'When you tap “Send order”, your order, name, email address and pickup note are sent through our website host (Vercel) and our email provider (Resend), which deliver them to us as an email. They aren’t stored on this website.',
       },
       {
-        title: 'What we do with your message',
-        body: 'We use your name and pickup note only to arrange your order and collection. We don’t share them, and we don’t add you to any mailing list. If you’d like us to delete our chat history with you, just ask.',
+        title: 'What we do with your details',
+        body: 'We use your name, email address and pickup note only to arrange your order and collection. We don’t share them, and we don’t add you to any mailing list. If you’d like us to delete your order emails, just ask.',
       },
       {
         title: 'Hosting',
