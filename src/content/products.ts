@@ -4,36 +4,36 @@ const allDesigns: Product['designIds'] = ['snoozie', 'clem', 'mr-move', 'bubbles
 
 // Sold as blind boxes: buyers choose how many, not which character.
 export const products: Product[] = [
-  {
-    id: 'blind-box',
-    type: 'blind-box',
-    name: 'Blind box',
-    description: 'One sealed box with a surprise Wello character inside. Every ball has activated charcoal and natural lava stone.',
-    priceSGD: 12, // TODO(content): placeholder price
-    designIds: allDesigns,
-    itemsPerPack: 1,
-    // checkoutUrl: 'https://buy.stripe.com/...',
-  },
-  // Pick-your-character options, from before the switch to blind boxes. The order form
-  // still supports them: uncomment to sell them alongside (or instead of) blind boxes.
   // {
-  //   id: 'single',
-  //   type: 'ball',
-  //   name: 'Single ball',
-  //   description: 'One Wello scent ball, with activated charcoal and natural lava stone inside.',
-  //   priceSGD: 12,
+  //   id: 'blind-box',
+  //   type: 'blind-box',
+  //   name: 'Blind box',
+  //   description: 'One sealed box with a surprise Wello character inside. Every ball has activated charcoal and natural lava stone.',
+  //   priceSGD: 7,
   //   designIds: allDesigns,
   //   itemsPerPack: 1,
+  //   // checkoutUrl: 'https://buy.stripe.com/...',
   // },
-  // {
-  //   id: 'pouch-3',
-  //   type: 'pouch-set',
-  //   name: '3-pack in a fabric pouch',
-  //   description: 'Three scent balls in a fabric gift pouch.',
-  //   priceSGD: 30,
-  //   designIds: allDesigns,
-  //   itemsPerPack: 3,
-  // },
+  // Pick-your-character options, from before the switch to blind boxes. The order form
+  // still supports them: uncomment to sell them alongside (or instead of) blind boxes.
+  {
+    id: 'single',
+    type: 'ball',
+    name: 'Single ball',
+    description: 'One Wello scent ball, with activated charcoal and natural lava stone inside.',
+    priceSGD: 7,
+    designIds: allDesigns,
+    itemsPerPack: 1,
+  },
+  {
+    id: 'pouch-2',
+    type: 'pouch-set',
+    name: '2-pack in a fabric pouch',
+    description: 'Two scent balls in a fabric gift pouch.',
+    priceSGD: 12,
+    designIds: allDesigns,
+    itemsPerPack: 2,
+  },
   // Refill packs. Not needed for normal use (the stone is resprayed and the charcoal is
   // recharged in the sun); kept in case you ever sell spares. Uncomment to sell.
   // {

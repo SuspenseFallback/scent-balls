@@ -17,7 +17,7 @@ export const copy = {
   hero: {
     // Shown uppercase in Anton. Keep it short: long display headlines get hard to read.
     headlineOptions: ['Say Wello to freshness.', 'Say Wello to a fresher gym bag.', 'Meet the crew that keeps things fresh.'],
-    headline: 'Say Wello to freshness.', // TODO(content): pick final headline (one of headlineOptions, or your own)
+    headline: 'Say Wello to freshness.',
     subhead:
       'A 100% reusable scent ball with activated charcoal that helps absorb odour and a natural lava stone that diffuses your scent. Customise it with your own cologne or perfume, then simply drop it in your shoes, gym bag or locker!',
     // Small line above the headline.

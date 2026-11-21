@@ -29,30 +29,30 @@ export const designs: Design[] = [
     id: 'mr-move',
     name: 'Mr. Move',
     theme: 'Exercise',
-    color: '#5E6264', // TODO(content): match the real print
+    color: '#5E6264',
     emboss: 'a kettlebell shape, a red headband, a moustache and a 100 kg label',
-    tagline: 'Never skips leg day. Has no legs.', // TODO(content)
-    whoItsFor: 'Gym-goers, footballers, dancers and the whole CCA team.', // TODO(content)
+    tagline: 'Never skips leg day. Has no legs.',
+    whoItsFor: 'Gym-goers, footballers, dancers and the whole CCA team.',
     status: 'ready',
   },
   {
     id: 'bubbles',
     name: 'Bubbles',
     theme: 'Hygiene',
-    color: '#52B6B3', // TODO(content): match the real print
+    color: '#52B6B3',
     emboss: 'a calm, sleepy smile and soap bubbles',
-    tagline: 'First in the queue for the shower after training.', // TODO(content)
-    whoItsFor: 'Swimmers, runners and post-gym rinsers.', // TODO(content)
+    tagline: 'First in the queue for the shower after training.',
+    whoItsFor: 'Swimmers, runners and post-gym rinsers.',
     status: 'ready',
   },
   {
     id: 'solace',
     name: 'Solace',
     theme: 'Mental health',
-    color: '#EFA0BA', // TODO(content): match the real print
+    color: '#EFA0BA',
     emboss: 'a big smile, a plaster and a green ribbon',
-    tagline: 'A little patched up. Still smiling.', // TODO(content)
-    whoItsFor: 'Anyone who’s had a long week and turned up anyway.', // TODO(content)
+    tagline: 'A little patched up. Still smiling.',
+    whoItsFor: 'Anyone who’s had a long week and turned up anyway.',
     status: 'ready',
   },
   {
@@ -60,10 +60,10 @@ export const designs: Design[] = [
     id: 'ultra-rare',
     name: 'Ultra rare',
     theme: 'Top secret',
-    color: '#1B1D1F', // TODO(content): real colour
+    color: '#1B1D1F',
     emboss: 'its design hidden behind a question mark',
-    tagline: 'There’s one more out there. That’s all we’re saying for now.', // TODO(content): name, icon and how people can get one
-    whoItsFor: 'Anyone lucky enough to spot one.', // TODO(content)
+    tagline: 'There’s one more out there. That’s all we’re saying for now.',
+    whoItsFor: 'Anyone lucky enough to spot one.',
     status: 'ultra-rare',
   },
 ];
