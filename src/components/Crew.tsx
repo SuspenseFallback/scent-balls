@@ -18,7 +18,10 @@ export function Crew() {
       const m = location.hash.match(HASH);
       if (m && getDesign(m[1])) {
         setId(m[1]);
-        const go = () => document.getElementById('crew')?.scrollIntoView();
+        // Instant and on a timer (not smooth, not requestAnimationFrame): both need rendered frames,
+        // so in a tab that loads in the background the link would otherwise stay at the top.
+        const go = () =>
+          setTimeout(() => document.getElementById('crew')?.scrollIntoView({ behavior: 'instant', block: 'start' }), 0);
         // Wait for load, or the browser's own fragment handling can reset the scroll.
         if (document.readyState === 'complete') go();
         else window.addEventListener('load', go, { once: true });

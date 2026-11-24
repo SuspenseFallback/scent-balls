@@ -203,17 +203,17 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 ## Launch checklist
 
 - [x] Tagline and description final (`site.ts`)
-- [ ] Final vector logo dropped into `Logo.tsx` (if it differs from the current build); palette confirmed and `npm run check:contrast` passes
+- [x] Final logo confirmed (current `Logo.tsx`); palette confirmed and `npm run check:contrast` passes
 - [x] Final hero headline chosen (`copy.hero.headline`)
 - [x] `siteUrl`, `contactEmail`, Instagram and TikTok URLs set
-- [ ] Order emails working on the live site: changes pushed, `/api/order` shows `"configured": true`, and a test order received
-- [ ] Resend domain verified and `ORDER_EMAIL_FROM` set in Vercel (until then, `ORDER_EMAIL_TO` must be your Resend login email)
+- [x] Order emails working on the live site: changes pushed, `/api/order` shows `"configured": true`
+- [x] Order email delivery: orders go to the Resend login email (`ORDER_EMAIL_TO`) and Gmail auto-forwards them to the shop inbox. Optional later: verify a domain in Resend and set `ORDER_EMAIL_FROM` for better deliverability and one-click replies
 - [x] Blind box prices and payment note confirmed (`products.ts`, `site.ts`)
 - [x] Ultra rare wording confirmed (it can come in a blind box; rarity isn't published)
 - [x] Character icons, names, taglines and colours final (`designs.ts`, `src/assets/balls/`)
 - [x] Recyclability claim removed; the site says every part is reusable
 - [x] "Where it goes" photos (mock-ups, kept for now)
-- [ ] Link preview checked by pasting the URL into WhatsApp or Telegram
+- [x] Link preview checked by pasting the URL into WhatsApp or Telegram
 - [x] Proof section and how-it-works video stay hidden until there's real content
 - [x] Privacy page "Last updated" date correct (update it whenever that page changes)
 - [x] `npm run check:content` passes (no `TODO(content)` left)

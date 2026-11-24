@@ -35,7 +35,7 @@ export function Footer({ home = '#top', privacy = 'privacy.html' }: { home?: str
               </a>
             </li>
             <li>
-              <a target="_blank" href={`mailto:${site.contactEmail}`} rel="noopener noreferrer">
+              <a href={`mailto:${site.contactEmail}`}>
                 {site.contactEmail}
               </a>
             </li>

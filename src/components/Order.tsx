@@ -21,10 +21,10 @@ export function Order() {
           <div className="order__follow">
             <span className="order__follow-title">{o.followUs}</span>
             <div className="socials">
-              <a className="btn btn--secondary btn--small" href={site.instagramUrl} rel="noopener noreferrer">
+              <a className="btn btn--secondary btn--small" target="_blank" href={site.instagramUrl} rel="noopener noreferrer">
                 Instagram
               </a>
-              <a className="btn btn--secondary btn--small" href={site.tiktokUrl} rel="noopener noreferrer">
+              <a className="btn btn--secondary btn--small" target="_blank" href={site.tiktokUrl} rel="noopener noreferrer">
                 TikTok
               </a>
             </div>
