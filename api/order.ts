@@ -79,7 +79,7 @@ export async function POST(request: Request): Promise<Response> {
   // address other than your own Resend account's, and that includes reply-to. So reply-to (the
   // customer) is only added once you have your own sender; until then their email is in the text.
   const sender = process.env.ORDER_EMAIL_FROM;
-  const text = `${buildOrderText(lines, { name, email, pickupNote: note })}\n\n${
+  const text = `${buildOrderText(lines, { name, email, note })}\n\n${
     sender ? `Reply to this email to reach ${name}.` : `Reply to ${name} at ${email}.`
   }`;
   const res = await fetch('https://api.resend.com/emails', {

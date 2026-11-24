@@ -4,7 +4,6 @@ import { accentFor } from '../content/theme';
 import { publicUrl } from '../lib/photos';
 import { prefersReducedMotion } from '../lib/useInView';
 import { AirflowDiagram, type StepId } from './AirflowDiagram';
-import { PhotoSlot } from './PhotoSlot';
 import { Reveal } from './Reveal';
 import { SectionHead } from './SectionHead';
 
@@ -69,7 +68,8 @@ export function HowItWorks() {
         </div>
         <div className="how__visual">
           <AirflowDiagram step={step} />
-          {video.src ? (
+          {/* Optional loop video (copy.how.video.src); nothing shows until one is added. */}
+          {video.src && (
             <div className="photo-slot ratio-16x9">
               <video
                 src={publicUrl(video.src)}
@@ -85,8 +85,6 @@ export function HowItWorks() {
                 preload="none"
               />
             </div>
-          ) : (
-            <PhotoSlot ratio="16x9" label="video: spray-and-close loop (muted, 6–10s)" alt={video.label} />
           )}
         </div>
       </div>

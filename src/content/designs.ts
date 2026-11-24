@@ -13,7 +13,7 @@ export const designs: Design[] = [
     tagline: 'Always a bit sleepy. Somehow always fresh.',
     whoItsFor: 'Night owls, morning snoozers and anyone whose shoes live by the door.',
     status: 'ready',
-    // photo: 'snoozie.jpg', // TODO(content): add a real photo of the prototype
+    // photo: 'snoozie.jpg', // optional: a real photo replaces the icon everywhere
   },
   {
     id: 'clem',

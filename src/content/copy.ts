@@ -66,7 +66,7 @@ export const copy = {
     },
     diagramCaption: 'Illustrative diagram',
     video: {
-      src: null as string | null, // TODO(content): e.g. a 6–10s muted MP4 in /public, 'spray-close.mp4'
+      src: null as string | null, // optional: a 6–10s muted MP4 in /public, e.g. 'spray-close.mp4'. Hidden while null.
       poster: null as string | null,
       label: 'Short loop: spray the stone, close the ball',
     },
@@ -132,25 +132,25 @@ export const copy = {
     reviewsTitle: 'From people who’ve used it',
     btsTitle: 'Behind the scenes',
     btsPhoto: undefined as string | undefined,
-    btsCaption: 'Printing a batch.', // TODO(content)
+    btsCaption: 'Printing a batch.', // only shown if site.showBehindTheScenes is turned on
   },
   faq: { eyebrow: 'FAQ', title: 'Questions, answered.' },
   order: {
     eyebrow: 'Order',
     title: 'Reserve a blind box',
-    body: 'Be first in line for our first batch. Every ball is one of five characters, picked at random: it’s a blind box, so no choosing! Pick a single box or a 2-pack pouch, send your order, and we’ll email you to arrange pickup.',
+    body: 'Be first in line for our first batch. Every ball is one of five characters, picked at random: it’s a blind box, so no choosing! Pick a single box or a 2-pack pouch, send your order, and we’ll get back to you about it by email.',
     boxesLabel: 'Boxes',
     couldBe: 'Every ball could be any of these, or the ultra rare one:',
     nameLabel: 'Your name',
     emailLabel: 'Your email',
-    emailHint: 'We’ll reply here to arrange pickup.',
-    noteLabel: 'Pickup note',
-    notePlaceholder: 'e.g. Weekday evenings near Bishan MRT',
+    emailHint: 'We’ll get back to you here about your order.',
+    noteLabel: 'Note',
+    notePlaceholder: 'e.g. A question, or anything we should know',
     subtotal: 'Subtotal',
     send: 'Send order',
     sending: 'Sending…',
     sentTitle: 'Order sent!',
-    sentBody: (email: string) => `Thanks! We’ve got your order and will email you at ${email} to arrange pickup.`,
+    sentBody: (email: string) => `Thanks! We’ve got your order and will get back to you at ${email} about it.`,
     another: 'Place another order',
     failedTitle: 'That didn’t send.',
     failedBody: 'Something went wrong on our side. You can email your order to us instead:',
@@ -160,7 +160,6 @@ export const copy = {
     pouchDesignsLabel: 'Designs in each pouch',
     storesNothing: 'We only use your details to arrange this order.',
     followUs: 'Follow the crew',
-    pickupLabel: 'Pickup',
     paymentLabel: 'Payment',
     singleSuffix: 'each',
     pouchesLabel: 'Pouches',
@@ -201,11 +200,11 @@ export const copy = {
       },
       {
         title: 'How orders work',
-        body: 'When you tap “Send order”, your order, name, email address and pickup note are sent through our website host (Vercel) and our email provider (Resend), which deliver them to us as an email. They aren’t stored on this website.',
+        body: 'When you tap “Send order”, your order, name, email address and note are sent through our website host (Vercel) and our email provider (Resend), which deliver them to us as an email. They aren’t stored on this website.',
       },
       {
         title: 'What we do with your details',
-        body: 'We use your name, email address and pickup note only to arrange your order and collection. We don’t share them, and we don’t add you to any mailing list. If you’d like us to delete your order emails, just ask.',
+        body: 'We use your name, email address and note only to get back to you about your order. We don’t share them, and we don’t add you to any mailing list. If you’d like us to delete your order emails, just ask.',
       },
       {
         title: 'Hosting',
@@ -214,7 +213,7 @@ export const copy = {
     ],
     contactTitle: 'Contact',
     contactBody: 'Questions about your data under Singapore’s PDPA? Email',
-    updated: 'Last updated November 2026', // TODO(content): update when this page changes
+    updated: 'Last updated November 2026', // update when this page changes
   },
 };
 

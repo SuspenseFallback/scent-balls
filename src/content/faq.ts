@@ -53,7 +53,7 @@ export const faq: FaqItem[] = [
     id: 'material',
     q: 'What’s it made of?',
     a: [
-      `The shell is 3D-printed from ${site.shellMaterial}, which is 100% recyclable. Inside: activated charcoal and natural volcanic lava stone.`,
+      `The shell is 3D-printed from ${site.shellMaterial}. Inside: activated charcoal and natural volcanic lava stone. Every part is reusable.`,
     ],
   },
   {
@@ -63,10 +63,10 @@ export const faq: FaqItem[] = [
   },
   {
     id: 'ordering',
-    q: 'How do ordering and pickup work?',
+    q: 'How does ordering work?',
     a: [
-      'Choose how many boxes you’d like below and send your order. It comes straight to us by email, and we’ll reply to arrange pickup. Nothing is charged on this site.',
-      `${site.pickupInfo} ${site.paymentNote}`,
+      'Choose how many boxes you’d like below and send your order. It comes straight to us by email, and we’ll get back to you about it. Nothing is charged on this site.',
+      site.paymentNote,
     ],
   },
   {

@@ -14,10 +14,6 @@ export function Order() {
           <p className="lead">{o.body}</p>
           <dl className="order__info">
             <div>
-              <dt>{o.pickupLabel}</dt>
-              <dd>{site.pickupInfo}</dd>
-            </div>
-            <div>
               <dt>{o.paymentLabel}</dt>
               <dd>{site.paymentNote}</dd>
             </div>

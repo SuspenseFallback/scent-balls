@@ -1,8 +1,8 @@
 import type { Design, Product } from '../content/types';
 // .js extensions: this file is also loaded by api/order.ts as native ES modules on Vercel.
-import { site } from '../content/site.js';
 import { getDesign } from '../content/designs.js';
 import { products } from '../content/products.js';
+import { site } from '../content/site.js';
 
 /**
  * ALL order submission logic lives here. Orders are POSTed to site.orderEndpoint
@@ -21,7 +21,7 @@ export interface OrderLine {
 export interface OrderDetails {
   name: string;
   email: string;
-  pickupNote: string;
+  note: string;
 }
 
 export const formatPrice = (n: number) => `${site.currency}${n.toFixed(2)}`;
@@ -62,7 +62,7 @@ export function buildOrderText(lines: OrderLine[], details: OrderDetails): strin
     `Subtotal: ${formatPrice(subtotal(lines))}`,
     `Name: ${details.name.trim()}`,
     `Email: ${details.email.trim()}`,
-    details.pickupNote.trim() ? `Pickup: ${details.pickupNote.trim()}` : null,
+    details.note.trim() ? `Note: ${details.note.trim()}` : null,
     '',
     site.paymentNote,
   ]
@@ -93,7 +93,7 @@ export async function submitOrder(lines: OrderLine[], details: OrderDetails, web
       body: JSON.stringify({
         name: details.name.trim(),
         email: details.email.trim(),
-        note: details.pickupNote.trim(),
+        note: details.note.trim(),
         website,
         items: lines.filter((l) => l.qty > 0).map((l) => ({ productId: l.product.id, qty: l.qty, designIds: l.designIds })),
       }),

@@ -78,7 +78,6 @@ export interface SiteConfig {
   /** Where the order form sends orders (the Vercel function in api/order.ts). */
   orderEndpoint: string;
   paymentNote: string;
-  pickupInfo: string;
   shellMaterial: string;
   testResult: TestResult | null;
   showReviews: boolean;

@@ -19,7 +19,7 @@ Everything you'd normally change lives in `src/content/`:
 
 | File | What's in it |
 | --- | --- |
-| `site.ts` | Brand name, tagline, description, URL, contact email, socials, order mode and endpoint, payment note, pickup info, and the feature flags below |
+| `site.ts` | Brand name, tagline, description, URL, contact email, socials, order mode and endpoint, payment note, and the feature flags below |
 | `designs.ts` | The five characters and the ultra rare teaser: name, theme, colour, face description, tagline, who it's for, `status`, `photo` |
 | `products.ts` | What can be ordered: the blind box (live), plus commented-out pick-your-character, 3-pack pouch and refill options; prices, optional `checkoutUrl` |
 | `faq.ts` | FAQ questions and answers |
@@ -48,7 +48,7 @@ The source art is the SVGs in `src/assets/balls/` (`snoozie.svg`, `clem.svg`, `m
 - makes the loop's opening see-through so the section colour shows through it,
 - puts every icon on the same canvas size, centred on its loop and aligned at the bottom. The source art is drawn at one scale, so every ball shows at the same size wherever icons share a box (Snoozie's Z's and Mr. Move's tall handle just use the spare room), and each hangs straight from the hero string.
 
-The site only uses the web copies: hero, scrolling band, "Make it yours", crew picker, where-it-goes placeholders, order form and footer. To replace an icon, overwrite its SVG and run the script. To add one, add it to `ICONS` in `scripts/ball-icons.mjs`. If new art uses another font, add that font to `FONTS` there. The old PNGs in that folder are no longer used.
+The site only uses the web copies: hero, scrolling band, "Make it yours", crew picker, where-it-goes placeholders, order form and footer. To replace an icon, overwrite its SVG and run the script. To add one, add it to `ICONS` in `scripts/ball-icons.mjs`. If new art uses another font, add that font to `FONTS` there.
 
 A `photo` on a design takes priority over its icon.
 
@@ -137,7 +137,7 @@ All of these stay hidden until you turn them on. Never publish made-up results o
 
 ## Ordering and payments
 
-v1 has no payments on the site. People choose how many blind boxes they want, add their name, email and a pickup note, and tap **Send order**. The order is emailed to you automatically; the customer's address is set as reply-to, so you just hit reply to arrange pickup. The site itself stores nothing.
+v1 has no payments on the site. People choose how many blind boxes they want, add their name, email and an optional note, and tap **Send order**. The order is emailed to you automatically; the customer's address is set as reply-to, so you just hit reply to get back to them. The site itself stores nothing.
 
 How it works: the form POSTs to `/api/order` (`site.orderEndpoint`). That's a Vercel serverless function in `api/order.ts`. It re-checks the order against `products.ts` so prices can't be tampered with, ignores bots that fill a hidden field, and sends the email through [Resend](https://resend.com) using a plain HTTPS call (no extra packages).
 
@@ -193,7 +193,7 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 ## Copy rules (keep these when editing)
 
 - Say "helps absorb" and "designed for airflow". Never "eliminates", "kills germs", "non-toxic", "biodegradable", "compostable", an unqualified "eco-friendly", or "pushes out air".
-- Reusability is a headline message, sustainability supports it. Facts only: Wello is 100% reusable (respray the stone; recharge the charcoal sachet in the sun every few months; no disposable parts), with natural volcanic lava stone. Don't add unqualified "eco-friendly", "sustainable" or waste comparisons without evidence. The shell is PETG (`shellMaterial` in `site.ts`). Say PETG is recyclable, as the FAQ does, but don't call it recycled unless the filament is confirmed recycled. No claims about where the charcoal comes from.
+- Reusability is a headline message, sustainability supports it. Facts only: Wello is 100% reusable (respray the stone; recharge the charcoal sachet in the sun every few months; no disposable parts), with natural volcanic lava stone. Don't add unqualified "eco-friendly", "sustainable" or waste comparisons without evidence. The shell is PETG (`shellMaterial` in `site.ts`). No claims about where the charcoal comes from.
 - No durations ("lasts a week") or comparisons ("better than…") until `testResult` is set.
 - Never invent reviews or names. "Made/Designed in Singapore" only with the flag on.
 - Keep the safety lines in the FAQ and footer (`safetyLines` in `copy.ts`).
@@ -202,20 +202,19 @@ Vercel Web Analytics is added once, in `src/mount.tsx`, so it covers every page.
 
 ## Launch checklist
 
-- [ ] Tagline and description final (`site.ts`)
+- [x] Tagline and description final (`site.ts`)
 - [ ] Final vector logo dropped into `Logo.tsx` (if it differs from the current build); palette confirmed and `npm run check:contrast` passes
-- [ ] Final hero headline chosen (`copy.hero.headline`)
-- [ ] `siteUrl`, `contactEmail`, Instagram and TikTok URLs set
-- [ ] Vercel env vars set (`ORDER_EMAIL_TO`, `RESEND_API_KEY`, ideally `ORDER_EMAIL_FROM` with a verified domain), and a test order received on a real phone
-- [ ] Blind box price, payment note and pickup info confirmed (`products.ts`, `site.ts`)
-- [ ] Ultra rare: confirmed it can come in a blind box (the site says so), and how rare it is
-- [ ] Design colours matched to the real prints; taglines and "who it's for" final (`designs.ts`)
-- [ ] Higher-resolution icons added (the current ones are only 200–245px wide)
-- [ ] Ultra rare ball: name, icon and how people can get one
-- [ ] Recyclability wording in the FAQ checked for how the ball can actually be recycled in Singapore
-- [ ] Real photos added (at least Snoozie + the use-case grid); OG preview checked
-- [ ] Any test results, reviews or behind-the-scenes content is real before turning it on
-- [ ] Privacy page "Last updated" date correct
-- [ ] `npm run check:content` passes (no `TODO(content)` left)
-- [ ] `npm run build` passes; spot-check at 375, 768 and 1280px
+- [x] Final hero headline chosen (`copy.hero.headline`)
+- [x] `siteUrl`, `contactEmail`, Instagram and TikTok URLs set
+- [ ] Order emails working on the live site: changes pushed, `/api/order` shows `"configured": true`, and a test order received
+- [ ] Resend domain verified and `ORDER_EMAIL_FROM` set in Vercel (until then, `ORDER_EMAIL_TO` must be your Resend login email)
+- [x] Blind box prices and payment note confirmed (`products.ts`, `site.ts`)
+- [x] Ultra rare wording confirmed (it can come in a blind box; rarity isn't published)
+- [x] Character icons, names, taglines and colours final (`designs.ts`, `src/assets/balls/`)
+- [x] Recyclability claim removed; the site says every part is reusable
+- [x] "Where it goes" photos (mock-ups, kept for now)
 - [ ] Link preview checked by pasting the URL into WhatsApp or Telegram
+- [x] Proof section and how-it-works video stay hidden until there's real content
+- [x] Privacy page "Last updated" date correct (update it whenever that page changes)
+- [x] `npm run check:content` passes (no `TODO(content)` left)
+- [x] `npm run build` passes; spot-checked at 375, 768 and 1280px

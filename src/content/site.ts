@@ -16,8 +16,7 @@ export const site: SiteConfig = {
   // Orders are emailed to you by api/order.ts. Set ORDER_EMAIL_TO and RESEND_API_KEY in Vercel.
   orderMode: 'email',
   orderEndpoint: '/api/order',
-  paymentNote: 'Pay by PayNow on collection.', // TODO(content)
-  pickupInfo: 'Pickup is arranged in person. Tell us a good MRT station or area and a time that works.', // TODO(content)
+  paymentNote: 'Pay by PayNow on collection.',
   shellMaterial: 'PETG', // what the shell is printed from; used across the page copy and JSON-LD
   testResult: null, // set { method, result, sampleSize, chart? } once you've tested properly
   showReviews: false,

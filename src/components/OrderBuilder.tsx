@@ -70,7 +70,7 @@ export function OrderBuilder() {
     }
   }
 
-  const details = { name, email, pickupNote: note };
+  const details = { name, email, note };
   const total = subtotal(lines);
 
   const stepQty = (k: string, delta: number) => {
