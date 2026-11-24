@@ -105,15 +105,16 @@ export const copy = {
   useCases: {
     eyebrow: 'Where it goes',
     title: 'Small enough for anywhere that gets stuffy.',
-    // TODO(content): add photos. photo = filename in src/assets/photos (4:3 works best); slot is the placeholder label until then.
+    // photo = filename in src/assets/photos (4:3). These are built by scripts/use-case-photos.mjs
+    // (free Unsplash photos + the character icons); replace with your own photos any time.
     items: [
-      { id: 'shoes', slot: 'ball in a sneaker', designId: 'snoozie', label: 'Shoes', body: 'One in each pair overnight.', photo: undefined },
-      { id: 'gym', slot: 'gym bag side pocket', designId: 'mr-move', label: 'Gym bag', body: 'Lives in the side pocket.', photo: undefined },
-      { id: 'school', slot: 'school bag', designId: 'clem', label: 'School bag', body: 'Next to the PE kit.', photo: undefined },
-      { id: 'locker', slot: 'locker shelf', designId: 'bubbles', label: 'Locker', body: 'Sits in the corner, quietly.', photo: undefined },
-      { id: 'wardrobe', slot: 'hanging in wardrobe', designId: 'solace', label: 'Wardrobe', body: 'Hang it from the rail.', photo: undefined },
-      { id: 'hang', slot: 'hanging from bag zip', designId: 'snoozie', label: 'Hang it on your bag', body: 'Loop it onto a zip or strap.', photo: undefined },
-    ] as { id: string; slot: string; designId: DesignId; label: string; body: string; photo?: string }[],
+      { id: 'shoes', slot: 'ball in a sneaker', designId: 'snoozie', label: 'Shoes', body: 'One in each pair overnight.', photo: 'shoes.webp', alt: 'Snoozie scent ball tucked into a red canvas sneaker' },
+      { id: 'gym', slot: 'gym bag side pocket', designId: 'mr-move', label: 'Gym bag', body: 'Lives in the side pocket.', photo: 'gym.webp', alt: 'Mr. Move scent ball sitting on a canvas duffel bag' },
+      { id: 'school', slot: 'school bag', designId: 'clem', label: 'School bag', body: 'Next to the PE kit.', photo: 'school.webp', alt: 'Clem scent ball peeking out of a backpack pocket next to some pencils' },
+      { id: 'locker', slot: 'locker shelf', designId: 'bubbles', label: 'Locker', body: 'Sits in the corner, quietly.', photo: 'locker.webp', alt: 'Bubbles scent ball hanging from a locker handle' },
+      { id: 'wardrobe', slot: 'hanging in wardrobe', designId: 'solace', label: 'Wardrobe', body: 'Hang it from the rail.', photo: 'wardrobe.webp', alt: 'Solace scent ball hanging from a clothes rail' },
+      { id: 'hang', slot: 'hanging from bag zip', designId: 'snoozie', label: 'Hang it on your bag', body: 'Loop it onto a zip or strap.', photo: 'hang.webp', alt: 'Snoozie scent ball hanging from a backpack zip' },
+    ] as { id: string; slot: string; designId: DesignId; label: string; body: string; photo?: string; alt?: string }[],
   },
   madeBetter: {
     eyebrow: 'Made to last',
@@ -137,9 +138,9 @@ export const copy = {
   order: {
     eyebrow: 'Order',
     title: 'Reserve a blind box',
-    body: 'Be first in line for our first batch. Each box holds one of five characters, picked at random. Choose how many you’d like, send your order, and we’ll email you to arrange pickup.',
+    body: 'Be first in line for our first batch. Every ball is one of five characters, picked at random: it’s a blind box, so no choosing! Pick a single box or a 2-pack pouch, send your order, and we’ll email you to arrange pickup.',
     boxesLabel: 'Boxes',
-    couldBe: 'Could be any of these, or the ultra rare one:',
+    couldBe: 'Every ball could be any of these, or the ultra rare one:',
     nameLabel: 'Your name',
     emailLabel: 'Your email',
     emailHint: 'We’ll reply here to arrange pickup.',

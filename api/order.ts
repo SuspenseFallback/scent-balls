@@ -7,9 +7,11 @@
 //   ORDER_EMAIL_FROM  optional sender, e.g. "Wello orders <orders@yourdomain.com>". Needs a domain
 //                     verified in Resend. Without it, Resend's test sender is used, which can only
 //                     deliver to the email address of your own Resend account.
-import { products } from '../src/content/products';
-import { site } from '../src/content/site';
-import { buildOrderText, formatPrice, subtotal, type OrderLine } from '../src/lib/orders';
+// Explicit .js extensions: Vercel runs this as native ES modules, which need them
+// (TypeScript and Vite map them back to the .ts files).
+import { products } from '../src/content/products.js';
+import { site } from '../src/content/site.js';
+import { buildOrderText, formatPrice, subtotal, type OrderLine } from '../src/lib/orders.js';
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const respond = (status: number, body: Record<string, unknown>) =>
@@ -22,6 +24,16 @@ interface Incoming {
   note?: unknown;
   website?: unknown; // honeypot: real visitors never fill this in
   items?: unknown;
+}
+
+/** Setup check: GET /api/order says whether the email settings are visible (never their values). */
+export function GET(): Response {
+  return respond(200, {
+    configured: Boolean(process.env.ORDER_EMAIL_TO && process.env.RESEND_API_KEY),
+    hasRecipient: Boolean(process.env.ORDER_EMAIL_TO),
+    hasApiKey: Boolean(process.env.RESEND_API_KEY),
+    customSender: Boolean(process.env.ORDER_EMAIL_FROM),
+  });
 }
 
 export async function POST(request: Request): Promise<Response> {
@@ -63,14 +75,20 @@ export async function POST(request: Request): Promise<Response> {
     return respond(503, { ok: false, error: 'not-configured' });
   }
 
-  const text = `${buildOrderText(lines, { name, email, pickupNote: note })}\n\nReply to this email to reach ${name}.`;
+  // Resend's test sender (used until ORDER_EMAIL_FROM is set with a verified domain) refuses any
+  // address other than your own Resend account's, and that includes reply-to. So reply-to (the
+  // customer) is only added once you have your own sender; until then their email is in the text.
+  const sender = process.env.ORDER_EMAIL_FROM;
+  const text = `${buildOrderText(lines, { name, email, pickupNote: note })}\n\n${
+    sender ? `Reply to this email to reach ${name}.` : `Reply to ${name} at ${email}.`
+  }`;
   const res = await fetch('https://api.resend.com/emails', {
     method: 'POST',
     headers: { Authorization: `Bearer ${key}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: process.env.ORDER_EMAIL_FROM || `${site.brandName} orders <onboarding@resend.dev>`,
+      from: sender || `${site.brandName} orders <onboarding@resend.dev>`,
       to: to.split(',').map((s) => s.trim()).filter(Boolean),
-      reply_to: email,
+      ...(sender ? { reply_to: email } : {}),
       subject: `New order from ${name} (${formatPrice(subtotal(lines))})`,
       text,
     }),

@@ -167,6 +167,8 @@ export function OrderBuilder() {
             );
 
             if (p.type === 'blind-box') {
+              // Show "could be any of these" once, under the last blind-box product.
+              const lastBlind = built.filter((b) => b.type === 'blind-box').slice(-1)[0] === p;
               return (
                 <fieldset key={p.id}>
                   <legend>
@@ -174,13 +176,15 @@ export function OrderBuilder() {
                     {priceNote}
                   </legend>
                   <div className="line line--plain">
-                    <span className="line__label">{o.boxesLabel}</span>
+                    <span className="line__label">{p.itemsPerPack > 1 ? o.pouchesLabel : o.boxesLabel}</span>
                     <Stepper label={`${p.name} quantity`} value={qty[key(p.id)] ?? 0} onStep={(d) => stepQty(key(p.id), d)} />
                   </div>
-                  <div className="blindbox__odds">
-                    <p className="note">{o.couldBe}</p>
-                    <CrewRow />
-                  </div>
+                  {lastBlind && (
+                    <div className="blindbox__odds">
+                      <p className="note">{o.couldBe}</p>
+                      <CrewRow />
+                    </div>
+                  )}
                 </fieldset>
               );
             }

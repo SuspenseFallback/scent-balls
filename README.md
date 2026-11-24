@@ -100,6 +100,8 @@ Display is **Anton** (`@fontsource/anton`, Latin subset): uppercase, slightly tr
 
 ## Adding real photos
 
+The "Where it goes" grid already has photos: free Unsplash photos with a Wello character placed into each scene (`src/assets/photos/<scene>.webp`). They're built by `npm run photos:uses` (`scripts/use-case-photos.mjs`) from the originals in `src/assets/photos/source/`. Each scene's position, size, tilt and "tuck" shape (the part of the photo drawn over the ball, so it sits inside a shoe or pocket) are plain numbers at the top of that script. Credits and licence notes are in `src/assets/photos/source/CREDITS.md`. To use your own photo for a scene instead, drop it in `src/assets/photos/` and point that item's `photo` at it in `copy.ts`.
+
 1. Drop images into `src/assets/photos/` (`.jpg`, `.webp`, `.avif` or `.png`).
    - Design photos: square, about 1200×1200, ball on a plain or transparent background.
    - Use-case photos: 4:3, about 1200×900.
@@ -148,7 +150,7 @@ How it works: the form POSTs to `/api/order` (`site.orderEndpoint`). That's a Ve
    - `ORDER_EMAIL_FROM` (optional): for example `Wello orders <orders@yourdomain.com>`. Verify that domain in Resend first. Without it, Resend's test sender is used, and that can only deliver to the email address of your own Resend account.
 3. Redeploy, then place a test order on the live site.
 
-If sending fails (not configured yet, Resend down, or a host without the function), the form says so and offers **Email your order**, which opens the visitor's own email app addressed to `site.contactEmail` with the order filled in. `/api/order` only exists on Vercel: `npm run preview` (and GitHub Pages or Netlify) will always show that fallback. To test sending locally, run `npx vercel dev` with the same variables in `.env.local`.
+If sending fails (not configured yet, Resend down, or a host without the function), the form says so and offers **Email your order**, which opens the visitor's own email app addressed to `site.contactEmail` with the order filled in. `/api/order` only exists on Vercel: `npm run preview` (and GitHub Pages or Netlify) will always show that fallback. To test sending locally, put the variables in `.env.local` (or run `npx vercel env pull`) and start the site with `npm run dev:api`. It loads `.env.local` and runs `vercel dev`, because plain `vercel dev` doesn't pass `.env.local` to the function. Open http://localhost:3000/api/order to check: it shows `"configured": true` once the function can see both settings (never their values).
 
 All order logic is in **`src/lib/orders.ts`** (plus the function in `api/order.ts`).
 

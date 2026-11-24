@@ -2,38 +2,47 @@ import type { Product } from './types';
 
 const allDesigns: Product['designIds'] = ['snoozie', 'clem', 'mr-move', 'bubbles', 'solace'];
 
-// Sold as blind boxes: buyers choose how many, not which character.
+// Sold as blind boxes: buyers choose how many, never which character.
 export const products: Product[] = [
-  // {
-  //   id: 'blind-box',
-  //   type: 'blind-box',
-  //   name: 'Blind box',
-  //   description: 'One sealed box with a surprise Wello character inside. Every ball has activated charcoal and natural lava stone.',
-  //   priceSGD: 7,
-  //   designIds: allDesigns,
-  //   itemsPerPack: 1,
-  //   // checkoutUrl: 'https://buy.stripe.com/...',
-  // },
-  // Pick-your-character options, from before the switch to blind boxes. The order form
-  // still supports them: uncomment to sell them alongside (or instead of) blind boxes.
   {
-    id: 'single',
-    type: 'ball',
-    name: 'Single ball',
-    description: 'One Wello scent ball, with activated charcoal and natural lava stone inside.',
+    id: 'blind-box',
+    type: 'blind-box',
+    name: 'Blind box',
+    description: 'One sealed box with a surprise Wello character inside. Every ball has activated charcoal and natural lava stone.',
     priceSGD: 7,
     designIds: allDesigns,
     itemsPerPack: 1,
+    // checkoutUrl: 'https://buy.stripe.com/...',
   },
   {
-    id: 'pouch-2',
-    type: 'pouch-set',
-    name: '2-pack in a fabric pouch',
-    description: 'Two scent balls in a fabric gift pouch.',
+    id: 'blind-pouch-2',
+    type: 'blind-box',
+    name: 'Blind 2-pack in a fabric pouch',
+    description: 'Two surprise Wello characters in a fabric gift pouch.',
     priceSGD: 12,
     designIds: allDesigns,
     itemsPerPack: 2,
   },
+  // Pick-your-character options (not blind). The order form still supports them, but they
+  // don't fit the blind-box concept; uncomment only if you ever sell chosen characters.
+  // {
+  //   id: 'single',
+  //   type: 'ball',
+  //   name: 'Single ball',
+  //   description: 'One Wello scent ball, with activated charcoal and natural lava stone inside.',
+  //   priceSGD: 7,
+  //   designIds: allDesigns,
+  //   itemsPerPack: 1,
+  // },
+  // {
+  //   id: 'pouch-2',
+  //   type: 'pouch-set',
+  //   name: '2-pack in a fabric pouch',
+  //   description: 'Two scent balls in a fabric gift pouch.',
+  //   priceSGD: 12,
+  //   designIds: allDesigns,
+  //   itemsPerPack: 2,
+  // },
   // Refill packs. Not needed for normal use (the stone is resprayed and the charcoal is
   // recharged in the sun); kept in case you ever sell spares. Uncomment to sell.
   // {

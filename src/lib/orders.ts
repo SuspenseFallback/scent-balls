@@ -1,7 +1,8 @@
 import type { Design, Product } from '../content/types';
-import { site } from '../content/site';
-import { getDesign } from '../content/designs';
-import { products } from '../content/products';
+// .js extensions: this file is also loaded by api/order.ts as native ES modules on Vercel.
+import { site } from '../content/site.js';
+import { getDesign } from '../content/designs.js';
+import { products } from '../content/products.js';
 
 /**
  * ALL order submission logic lives here. Orders are POSTed to site.orderEndpoint
