@@ -1,6 +1,6 @@
 import type { Product } from './types';
 
-const allDesigns: Product['designIds'] = ['snoozie', 'clem', 'mr-move', 'bubbles', 'solace'];
+const allDesigns: Product['designIds'] = ['snoozie', 'clem', 'mr-move', 'bubbles', 'bloom'];
 
 // Sold as blind boxes: buyers choose how many, never which character.
 export const products: Product[] = [

@@ -41,7 +41,7 @@ The order form still supports picking characters (`type: 'ball'`) and the 3-pack
 
 ### Character icons
 
-The source art is the SVGs in `src/assets/balls/` (`snoozie.svg`, `clem.svg`, `mrmove.svg`, `bubbles.svg`, `solace.svg`). `npm run balls:icons` prepares web copies in `src/assets/balls/web/<id>.svg` plus `manifest.json`. For each icon it:
+The source art is the SVGs in `src/assets/balls/` (`snoozie.svg`, `clem.svg`, `mrmove.svg`, `bubbles.svg`, `bloom.svg`). `npm run balls:icons` prepares web copies in `src/assets/balls/web/<id>.svg` plus `manifest.json`. For each icon it:
 
 - removes hidden layers (such as the reference image the art was traced from),
 - turns text (the Z's, "1 kg") into shapes, since an SVG shown as an image can't load fonts (the fonts come from `@fontsource/source-sans-3` and `@fontsource/nanum-pen-script`),

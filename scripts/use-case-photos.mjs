@@ -61,7 +61,7 @@ const SCENES = [
   },
   {
     id: 'wardrobe',
-    design: 'solace',
+    design: 'bloom',
     hang: [1182, 380],
     width: 340,
     tilt: -3,

@@ -1,7 +1,7 @@
 /** Icons for the "sticky truth" cards (drawn in src/components/WeatherIcon.tsx). */
 export type WeatherIconName = 'temperature' | 'sun' | 'humidity';
 
-export type DesignId = 'snoozie' | 'clem' | 'mr-move' | 'bubbles' | 'solace' | 'ultra-rare';
+export type DesignId = 'snoozie' | 'clem' | 'mr-move' | 'bubbles' | 'bloom' | 'ultra-rare';
 
 export interface Design {
   id: DesignId;

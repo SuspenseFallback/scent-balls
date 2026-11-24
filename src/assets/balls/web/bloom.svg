@@ -13,7 +13,7 @@
 .cls-10{fill:#ffffff}
 </style>
 </defs>
-<g id="Layer_1" data-name="Layer 1"><mask id="solace-loop" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000"><rect x="-5000" y="-5000" width="10000" height="10000" fill="#fff"/><ellipse cx="487.427" cy="270.421" rx="45.4" ry="110.357" fill="#000"/></mask><g mask="url(#solace-loop)">
+<g id="Layer_1" data-name="Layer 1"><mask id="bloom-loop" maskUnits="userSpaceOnUse" x="-5000" y="-5000" width="10000" height="10000"><rect x="-5000" y="-5000" width="10000" height="10000" fill="#fff"/><ellipse cx="487.427" cy="270.421" rx="45.4" ry="110.357" fill="#000"/></mask><g mask="url(#bloom-loop)">
 <ellipse cx="489.678" cy="232.344" rx="79.406" ry="110.357" class="cls-1"/>
 </g><ellipse cx="487.427" cy="270.421" rx="45.4" ry="110.357" class="cls-2" style="fill:none"/>
 <ellipse cx="487.973" cy="560.941" rx="317.288" ry="317.072" class="cls-3"/>

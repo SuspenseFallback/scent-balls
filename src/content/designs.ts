@@ -46,8 +46,8 @@ export const designs: Design[] = [
     status: 'ready',
   },
   {
-    id: 'solace',
-    name: 'Solace',
+    id: 'bloom',
+    name: 'Bloom',
     theme: 'Mental health',
     color: '#EFA0BA',
     emboss: 'a big smile, a plaster and a green ribbon',

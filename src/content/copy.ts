@@ -112,7 +112,7 @@ export const copy = {
       { id: 'gym', slot: 'gym bag side pocket', designId: 'mr-move', label: 'Gym bag', body: 'Lives in the side pocket.', photo: 'gym.webp', alt: 'Mr. Move scent ball sitting on a canvas duffel bag' },
       { id: 'school', slot: 'school bag', designId: 'clem', label: 'School bag', body: 'Next to the PE kit.', photo: 'school.webp', alt: 'Clem scent ball peeking out of a backpack pocket next to some pencils' },
       { id: 'locker', slot: 'locker shelf', designId: 'bubbles', label: 'Locker', body: 'Sits in the corner, quietly.', photo: 'locker.webp', alt: 'Bubbles scent ball hanging from a locker handle' },
-      { id: 'wardrobe', slot: 'hanging in wardrobe', designId: 'solace', label: 'Wardrobe', body: 'Hang it from the rail.', photo: 'wardrobe.webp', alt: 'Solace scent ball hanging from a clothes rail' },
+      { id: 'wardrobe', slot: 'hanging in wardrobe', designId: 'bloom', label: 'Wardrobe', body: 'Hang it from the rail.', photo: 'wardrobe.webp', alt: 'Bloom scent ball hanging from a clothes rail' },
       { id: 'hang', slot: 'hanging from bag zip', designId: 'snoozie', label: 'Hang it on your bag', body: 'Loop it onto a zip or strap.', photo: 'hang.webp', alt: 'Snoozie scent ball hanging from a backpack zip' },
     ] as { id: string; slot: string; designId: DesignId; label: string; body: string; photo?: string; alt?: string }[],
   },

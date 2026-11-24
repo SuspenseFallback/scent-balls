@@ -1,6 +1,6 @@
-import type { FaqItem } from './types';
-import { site } from './site';
 import { safetyLines } from './copy';
+import { site } from './site';
+import type { FaqItem } from './types';
 
 export const faq: FaqItem[] = [
   {
@@ -78,7 +78,7 @@ export const faq: FaqItem[] = [
     id: 'blind-box',
     q: 'Can I choose which character I get?',
     a: [
-      'Not right now. Every Wello comes in a blind box, so each one is a surprise: Snoozie, Clem, Mr. Move, Bubbles, Solace, or, if you’re lucky, the ultra rare one.',
+      'Not right now. Every Wello comes in a blind box, so each one is a surprise: Snoozie, Clem, Mr. Move, Bubbles, Bloom, or, if you’re lucky, the ultra rare one.',
       'You might get a double. That’s half the fun: swap with a friend.',
     ],
   },
@@ -86,7 +86,7 @@ export const faq: FaqItem[] = [
     id: 'themes',
     q: 'Do the themes mean it helps with my sleep or mental health?',
     a: [
-      'No. Snoozie, Clem, Mr. Move, Bubbles and Solace are characters, and their themes are just for fun. It’s a scent ball for your shoes and bags, not a health product.',
+      'No. Snoozie, Clem, Mr. Move, Bubbles and Bloom are characters, and their themes are just for fun. It’s a scent ball for your shoes and bags, not a health product.',
       'If you’re having a hard time, please talk to someone you trust or a professional.',
     ],
   },

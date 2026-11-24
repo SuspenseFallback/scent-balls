@@ -21,7 +21,7 @@ const ICONS = [
   { id: 'clem', file: 'clem.svg' },
   { id: 'mr-move', file: 'mrmove.svg' },
   { id: 'bubbles', file: 'bubbles.svg' },
-  { id: 'solace', file: 'solace.svg' },
+  { id: 'bloom', file: 'bloom.svg' },
 ];
 
 // Fonts used by <text> in the source art (font-family, bold?) → self-hosted font file.
